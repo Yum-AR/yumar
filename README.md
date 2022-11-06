@@ -1,2 +1,2 @@
 # yumar
-an applicaiton that displays food using augmented reality
+an application that displays food using augmented reality
