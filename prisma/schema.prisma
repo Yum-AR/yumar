@@ -1,0 +1,209 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Actions {
+  actionId    Int           @id
+  code        String?       @db.VarChar
+  name        String?       @db.VarChar
+  Permissions Permissions[]
+}
+
+model DietWarning {
+  dietWarningId        Int                 @id
+  glutenFree           Boolean?
+  halal                Boolean?
+  kosher               Boolean?
+  vegan                Boolean?
+  vegetarian           Boolean?
+  restaurantSettingsId Int?
+  RestaurantSettings   RestaurantSettings? @relation(fields: [restaurantSettingsId], references: [restaurantSettingsId], onDelete: NoAction, onUpdate: NoAction, map: "dietwarning_to_restaurantsettings_fkey")
+}
+
+model Favorites {
+  favoritesId  Int         @id(map: "Owners_pkey")
+  menuItemId   Int?
+  restaurantId Int?
+  MenuItems    MenuItems?  @relation(fields: [menuItemId], references: [menuItemId], onDelete: NoAction, onUpdate: NoAction, map: "Favorites_to_MenuItems_Fkey")
+  Restaurant   Restaurant? @relation(fields: [restaurantId], references: [restaurantId], onDelete: NoAction, onUpdate: NoAction, map: "Favorites_to_Restaurant_fkey")
+  YumARUser    YumARUser[]
+
+  @@index([menuItemId], map: "fki_Favorites_to_MenuItems_Fkey")
+  @@index([restaurantId], map: "fki_Favorites_to_Restaurant_fkey")
+}
+
+model Genre {
+  genreId                 Int                       @id
+  genre                   String?                   @db.VarChar
+  RestaurantSettingsGenre RestaurantSettingsGenre[]
+}
+
+model MenuItems {
+  menuItemId        Int         @id
+  isPublished       Boolean?
+  itemDescription   String?     @db.VarChar
+  itemPrice         Decimal?    @db.Decimal
+  lastUpdatedDate   DateTime?   @db.Date
+  menuHeaderId      Int?
+  menuItem          String?     @db.VarChar
+  modelApproval     Boolean?
+  modelUrl          String?     @db.VarChar
+  modelUpdate       String?     @db.VarChar
+  restaurantId      Int?
+  scaleCompensation String?     @db.VarChar
+  thumbnailUrl      String?     @db.VarChar
+  userId            Int?
+  Restaurant        Restaurant? @relation(fields: [restaurantId], references: [restaurantId], onDelete: NoAction, onUpdate: NoAction, map: "MenuItems_to_Restaurant_fkey")
+  YumARUser         YumARUser?  @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "menuitems_to_yumaruser_fkey")
+  Favorites         Favorites[]
+
+  @@index([restaurantId], map: "fki_MenuItems_to_Restaurant_fkey")
+  @@index([userId], map: "fki_menuitems_to_yumaruser")
+}
+
+model Owners {
+  ownerId                                    Int          @id(map: "Owners_pkey1")
+  email                                      String?      @db.VarChar
+  fullName                                   String?      @db.VarChar
+  restaurantId                               Int?
+  Restaurant_Owners_restaurantIdToRestaurant Restaurant?  @relation("Owners_restaurantIdToRestaurant", fields: [restaurantId], references: [restaurantId], onDelete: NoAction, onUpdate: NoAction, map: "Owners_to_Restaurant_fkey")
+  Restaurant_OwnersToRestaurant_ownerId      Restaurant[] @relation("OwnersToRestaurant_ownerId")
+  YumARUser                                  YumARUser[]
+
+  @@index([restaurantId], map: "fki_Owners_to_Restaurant_fkey")
+}
+
+model Permissions {
+  permissionId                                                     Int                  @id
+  actionId                                                         Int?
+  subjectId                                                        Int?
+  Actions                                                          Actions?             @relation(fields: [actionId], references: [actionId], onDelete: NoAction, onUpdate: NoAction, map: "Actions_Permissions_fkey")
+  Subjects                                                         Subjects?            @relation(fields: [subjectId], references: [subjectId], onDelete: NoAction, onUpdate: NoAction, map: "Subjects_Permissions_fkey")
+  RelatedPermissions_PermissionsToRelatedPermissions_permissionId  RelatedPermissions[] @relation("PermissionsToRelatedPermissions_permissionId")
+  RelatedPermissions_PermissionsToRelatedPermissions_relatedPermId RelatedPermissions[] @relation("PermissionsToRelatedPermissions_relatedPermId")
+  RolesPermissions                                                 RolesPermissions[]
+}
+
+model RelatedPermissions {
+  relatedPermissionsId                                      Int          @id
+  permissionId                                              Int?
+  relatedPermId                                             Int?
+  Permissions_PermissionsToRelatedPermissions_permissionId  Permissions? @relation("PermissionsToRelatedPermissions_permissionId", fields: [permissionId], references: [permissionId], onDelete: NoAction, onUpdate: NoAction, map: "permissionId_fkey")
+  Permissions_PermissionsToRelatedPermissions_relatedPermId Permissions? @relation("PermissionsToRelatedPermissions_relatedPermId", fields: [relatedPermId], references: [permissionId], onDelete: NoAction, onUpdate: NoAction, map: "relatedPermId_fkey")
+}
+
+model Restaurant {
+  restaurantId                                 Int                     @id
+  isApproved                                   Boolean?
+  isFeatured                                   Boolean?
+  restaurantDescription                        String?                 @db.VarChar
+  restaurantName                               String?                 @db.VarChar
+  websiteUrl                                   String?                 @db.VarChar
+  ownerId                                      Int?
+  userId                                       Int?
+  restaurantAddressId                          Int?
+  restaurantSettingsId                         Int?
+  Owners_OwnersToRestaurant_ownerId            Owners?                 @relation("OwnersToRestaurant_ownerId", fields: [ownerId], references: [ownerId], onDelete: NoAction, onUpdate: NoAction, map: "Restaurant_to_Owners_fkey")
+  RestaurantAddress                            RestaurantAddress?      @relation(fields: [restaurantAddressId], references: [restaurantAddressId], onDelete: NoAction, onUpdate: NoAction, map: "Restaurant_to_RestaurantAddress_fkey")
+  RestaurantSettings                           RestaurantSettings?     @relation(fields: [restaurantSettingsId], references: [restaurantSettingsId], onDelete: NoAction, onUpdate: NoAction, map: "Restaurant_to_RestaurantSettings_fkey")
+  YumARUser_Restaurant_userIdToYumARUser       YumARUser?              @relation("Restaurant_userIdToYumARUser", fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "Restaurant_to_YumARUser_fkey")
+  Favorites                                    Favorites[]
+  MenuItems                                    MenuItems[]
+  Owners_Owners_restaurantIdToRestaurant       Owners[]                @relation("Owners_restaurantIdToRestaurant")
+  RestaurantInformation                        RestaurantInformation[]
+  YumARUser_RestaurantToYumARUser_restaurantId YumARUser[]             @relation("RestaurantToYumARUser_restaurantId")
+
+  @@index([ownerId], map: "fki_Restaurant_to_Owners_fkey")
+  @@index([userId], map: "fki_Restaurant_to_YumARUser_fkey")
+}
+
+model RestaurantAddress {
+  restaurantAddressId Int          @id
+  city                String?      @db.VarChar
+  state               String?      @db.VarChar
+  street              String?      @db.VarChar
+  zip                 String?      @db.VarChar
+  Restaurant          Restaurant[]
+}
+
+model RestaurantInformation {
+  restaurantInformationId Int         @id
+  weekday                 Int?
+  startHour               DateTime?   @db.Timetz(6)
+  endHour                 DateTime?   @db.Timetz(6)
+  restaurantId            Int?
+  Restaurant              Restaurant? @relation(fields: [restaurantId], references: [restaurantId], onDelete: NoAction, onUpdate: NoAction, map: "restaurantinformation_to_restaurant_fkey")
+}
+
+model RestaurantSettings {
+  restaurantSettingsId        Int                       @id
+  priceRange                  String?                   @db.VarChar
+  restaurantHeaderImageUrl    String?                   @db.VarChar
+  restaurantThumbnailImageUrl String?                   @db.VarChar
+  DietWarning                 DietWarning[]
+  Restaurant                  Restaurant[]
+  RestaurantSettingsGenre     RestaurantSettingsGenre[]
+}
+
+model RestaurantSettingsGenre {
+  restaurantSettingsGenreId Int                 @id
+  genreId                   Int?
+  restaurantSettingsId      Int?
+  Genre                     Genre?              @relation(fields: [genreId], references: [genreId], onDelete: NoAction, onUpdate: NoAction, map: "RestaurantSettingsGenre_to_Genre")
+  RestaurantSettings        RestaurantSettings? @relation(fields: [restaurantSettingsId], references: [restaurantSettingsId], onDelete: NoAction, onUpdate: NoAction, map: "RestaurantSettingsGenre_to_RestaurantSettings_fkey")
+}
+
+model Roles {
+  roleId           Int                @id
+  role             String?            @db.VarChar
+  RolesPermissions RolesPermissions[]
+  UserRoles        UserRoles[]
+}
+
+model RolesPermissions {
+  rolesPermissionsId Int          @id
+  roleId             Int?
+  permissionId       Int?
+  Permissions        Permissions? @relation(fields: [permissionId], references: [permissionId], onDelete: NoAction, onUpdate: NoAction, map: "Permissions_RolesPermissions_fkey")
+  Roles              Roles?       @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "Roles_RolesPermissions_fkey")
+}
+
+model Subjects {
+  subjectId   Int           @id
+  code        String?       @db.VarChar
+  name        String?       @db.VarChar
+  Permissions Permissions[]
+}
+
+model UserRoles {
+  userRolesId Int        @id
+  userId      Int?
+  roleId      Int?
+  Roles       Roles?     @relation(fields: [roleId], references: [roleId], onDelete: NoAction, onUpdate: NoAction, map: "Roles_UserRoles_fkey")
+  YumARUser   YumARUser? @relation(fields: [userId], references: [userId], onDelete: NoAction, onUpdate: NoAction, map: "User_UserRoles_fkey")
+}
+
+model YumARUser {
+  userId                                        Int          @id
+  email                                         String?      @db.VarChar
+  favoritesId                                   Int?
+  fullName                                      String?      @db.VarChar
+  isOwner                                       Boolean?
+  ownerId                                       Int?
+  restaurantId                                  Int?
+  Favorites                                     Favorites?   @relation(fields: [favoritesId], references: [favoritesId], onDelete: NoAction, onUpdate: NoAction, map: "YumARUser_to_Favorites_fkey")
+  Owners                                        Owners?      @relation(fields: [ownerId], references: [ownerId], onDelete: NoAction, onUpdate: NoAction, map: "YumARUser_to_Owners_fkey")
+  Restaurant_RestaurantToYumARUser_restaurantId Restaurant?  @relation("RestaurantToYumARUser_restaurantId", fields: [restaurantId], references: [restaurantId], onDelete: NoAction, onUpdate: NoAction, map: "YumARUser_to_Restaurant_fkey")
+  MenuItems                                     MenuItems[]
+  Restaurant_Restaurant_userIdToYumARUser       Restaurant[] @relation("Restaurant_userIdToYumARUser")
+  UserRoles                                     UserRoles[]
+
+  @@index([favoritesId], map: "fki_YumARUser_to_Favorites_fkey")
+  @@index([ownerId], map: "fki_YumARUser_to_Owners_fkey")
+  @@index([restaurantId], map: "fki_YumARUser_to_Restaurant_fkey")
+}
