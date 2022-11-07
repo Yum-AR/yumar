@@ -13,5 +13,8 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: [ `firebasestorage.googleapis.com`, `tailwindui.com`, `media.istockphoto.com`, `images.unsplash.com` ],
+  },
 };
 export default config;
