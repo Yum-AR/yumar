@@ -3,11 +3,11 @@ import Head from "next/head";
 import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 import React from 'react';
-import CallToAction from "./CallToAction";
-import PhotoOptions from "./PhotoOptions";
-import Footer from "./Footer";
-import Features from "./Features";
-import HeroSection from "./HeroSection";
+import CallToAction from "./landingPage/CallToAction";
+import PhotoOptions from "./landingPage/PhotoOptions";
+import Footer from "./landingPage/Footer";
+import Features from "./landingPage/Features";
+import HeroSection from "./landingPage/HeroSection";
 import { trpc } from "../utils/trpc";
 
 const Home: NextPage = () => {

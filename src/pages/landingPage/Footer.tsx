@@ -1,5 +1,5 @@
 import React from 'react';
-import { footerNavigation } from './reusableItems/variables/variables';
+import { footerNavigation } from '../reusableItems/variables/variables';
 
 const Footer: React.FC = () =>
   <footer className="bg-white">

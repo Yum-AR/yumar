@@ -1,12 +1,12 @@
 import React, { Fragment, useState } from 'react';
 import { type NextPage } from 'next';
 import { Popover, Transition } from '@headlessui/react';
-import { navigation } from './reusableItems/variables/variables';
+import { navigation } from '../reusableItems/variables/variables';
 import Image from 'next/image';
-import {XIcon, MenuIcon} from './reusableItems/icons/icons';
-import ProfileDropdown from './reusableItems/components/ProfileDropdown';
-import AuthModal from './reusableItems/components/AuthModal';
-import SignUpModal from './reusableItems/components/SignUpModal';
+import {XIcon, MenuIcon} from '../reusableItems/icons/icons';
+import ProfileDropdown from '../reusableItems/components/ProfileDropdown';
+import AuthModal from '../reusableItems/components/AuthModal';
+import SignUpModal from '../reusableItems/components/SignUpModal';
 
 
 

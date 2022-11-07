@@ -1,8 +1,8 @@
 import React from 'react';
 import Image from 'next/image';
-import { transferFeatures, communicationFeatures } from './reusableItems/variables/variables';
+import { transferFeatures, communicationFeatures } from '../reusableItems/variables/variables';
 import * as BABYLON from 'babylonjs';
-import SceneComponent from './reusableItems/components/Scene';
+import SceneComponent from '../reusableItems/components/Scene';
 import 'babylonjs-loaders';
 
 
