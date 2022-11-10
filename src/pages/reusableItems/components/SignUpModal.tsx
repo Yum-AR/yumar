@@ -1,13 +1,33 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react';
+import { Fragment, useCallback, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { ClosedLockIcon, XIcon } from '../icons/icons';
+import Router from 'next/router';
 
 const SignUpModal = ({ showSignUpModal, setSignUpModal, setAuthModal }: { showSignUpModal: any, setSignUpModal: any, setAuthModal: any}) => {
+  const [email, setEmail] = useState('');
+  const [fullName, setFullName] = useState('');
+  const submitData = async (e: React.SyntheticEvent) => {
+    e.preventDefault()
+    try {
+      const body = { email, fullName }
+      await fetch(`/api/user`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      })
+      await Router.push('/')
+      setSignUpModal(false);
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   const showLoginForm = () => {
     setAuthModal(true);
     setSignUpModal(false);
   };
+
   return (
     <Transition.Root show={showSignUpModal} as={Fragment}>
       <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" open={showSignUpModal} onClose={setSignUpModal}>
@@ -61,11 +81,12 @@ const SignUpModal = ({ showSignUpModal, setSignUpModal, setAuthModal }: { showSi
                   </Dialog.Title>
                   <div className="mt-2">
                     <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-                      <form className="space-y-6" action="#" method="POST">
+                      <form className="space-y-6" action="#" method="POST" onSubmit={submitData}>
                         <div>
                           <div className="mt-1">
                             <input
                               id="email"
+                              value={email}
                               name="email"
                               type="email"
                               autoComplete="email"
@@ -74,6 +95,7 @@ const SignUpModal = ({ showSignUpModal, setSignUpModal, setAuthModal }: { showSi
                                border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none
                                 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                               placeholder="Email Address"
+                              onChange={e => setEmail(e.target.value)}
                             />
                           </div>
                         </div>
@@ -82,6 +104,7 @@ const SignUpModal = ({ showSignUpModal, setSignUpModal, setAuthModal }: { showSi
                           <div className="mt-1">
                             <input
                               id="password"
+                              value={fullName}
                               name="password"
                               type="password"
                               autoComplete="current-password"
@@ -90,6 +113,7 @@ const SignUpModal = ({ showSignUpModal, setSignUpModal, setAuthModal }: { showSi
                               shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500
                                focus:border-indigo-500 sm:text-sm"
                               placeholder="Password"
+                              onChange={e => setFullName(e.target.value)}
                             />
                           </div>
                         </div>
@@ -98,7 +122,7 @@ const SignUpModal = ({ showSignUpModal, setSignUpModal, setAuthModal }: { showSi
 
                           <button
                             type="submit"
-                            // onSubmit={signupHandler}
+                            //onSubmit={signupHandler}
                             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md
                              shadow-sm text-sm font-medium text-white bg-[#FF6F43] hover:bg-[#e27d18]
                               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF6F43]"

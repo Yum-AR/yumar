@@ -9,6 +9,7 @@ import Footer from "./landingPage/Footer";
 import Features from "./landingPage/Features";
 import HeroSection from "./landingPage/HeroSection";
 import { trpc } from "../utils/trpc";
+import prisma from '../lib/prisma';
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({ text: "from tRPC" });
