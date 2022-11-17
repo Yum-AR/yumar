@@ -7,6 +7,7 @@ import {XIcon, MenuIcon} from '../reusableItems/icons/icons';
 import ProfileDropdown from '../reusableItems/components/ProfileDropdown';
 import AuthModal from '../reusableItems/components/AuthModal';
 import SignUpModal from '../reusableItems/components/SignUpModal';
+import { getSession, signIn, signOut } from 'next-auth/react';
 
 
 
@@ -14,6 +15,7 @@ import SignUpModal from '../reusableItems/components/SignUpModal';
 const HomeNav: NextPage = () => {
   const [ showAuthModal, setAuthModal ] = useState(false);
   const [ showSignUpModal, setSignUpModal ] = useState(false);
+  const session = getSession();
 const currentUser = false;
   return (
     <>
@@ -110,7 +112,7 @@ const currentUser = false;
                   currentUser
                     ? <ProfileDropdown className="object-right-top"></ProfileDropdown>
                     : <div className="hidden md:flex md:items-center md:justify-end md:inset-y-0 md:right-0 space-x-6">
-                        <span className="inline-flex rounded-md shadow">
+                        {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border
@@ -122,8 +124,8 @@ const currentUser = false;
                           </button>
                           <AuthModal showAuthModal={showAuthModal} setAuthModal={setAuthModal}
                             setSignUpModal={setSignUpModal} />
-                        </span>
-                        <span className="inline-flex rounded-md shadow">
+                        </span> */}
+                        {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm
@@ -136,6 +138,45 @@ const currentUser = false;
                           </button>
                           <SignUpModal showSignUpModal={showSignUpModal} setSignUpModal={setSignUpModal}
                             setAuthModal={setAuthModal} />
+                        </span> */}
+                        <span className="inline-flex rounded-md shadow">
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm
+                            font-medium rounded-md shadow-sm text-white bg-[#FF6F43]
+                             hover:bg-[#ee8c2a] focus:outline-none
+                            focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => signIn()}
+                          >
+                          Sign In
+                          </button>
+                          
+                        </span>
+                        <span className="inline-flex rounded-md shadow">
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm
+                            font-medium rounded-md shadow-sm text-white bg-[#FF6F43]
+                             hover:bg-[#ee8c2a] focus:outline-none
+                            focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => signOut()}
+                          >
+                          Sign Out
+                          </button>
+                          
+                        </span>
+                        <span className="inline-flex rounded-md shadow">
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm
+                            font-medium rounded-md shadow-sm text-white bg-[#FF6F43]
+                             hover:bg-[#ee8c2a] focus:outline-none
+                            focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => console.log(session)}
+                          >
+                          Get Session
+                          </button>
+                          
                         </span>
                       </div>
 

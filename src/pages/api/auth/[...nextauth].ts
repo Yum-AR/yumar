@@ -35,13 +35,12 @@ export default NextAuth({
       //from: 'NextAuth.js <no-reply@example.com>'
     }),
     //There are better ways of doing this, but I'm not sure how. Without casting as string, Google throws me an error telling me clientId and clientSecret are undefined.
-    //It has something to do with OAuth, I think.
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
     })
   ],
-  secret: process.env.SECRET,
+  secret: env.NEXTAUTH_SECRET,
   session: {
 
   },
@@ -49,7 +48,7 @@ export default NextAuth({
 
   },
   pages: {
-
+    
   },
   callbacks: {
     
