@@ -7,15 +7,21 @@ import {XIcon, MenuIcon} from '../reusableItems/icons/icons';
 import ProfileDropdown from '../reusableItems/components/ProfileDropdown';
 import AuthModal from '../reusableItems/components/AuthModal';
 import SignUpModal from '../reusableItems/components/SignUpModal';
-import { getSession, signIn, signOut } from 'next-auth/react';
-
-
-
+import { getSession, signIn, signOut, useSession } from 'next-auth/react';
+import { trpc } from '../../utils/trpc';
 
 const HomeNav: NextPage = () => {
   const [ showAuthModal, setAuthModal ] = useState(false);
   const [ showSignUpModal, setSignUpModal ] = useState(false);
-  const session = getSession();
+  //const btnSignIn = document.getElementById("btnSignIn");
+  //const spnSignIn = document.getElementById("spnSignIn");
+  //const session = getSession();
+  const { data: session, status } = useSession();
+  //if (status === "authenticated") {
+    //return <p>Signed in as {session.user.email}</p>
+    //spnSignIn.style.display = "none";
+  //}
+
 const currentUser = false;
   return (
     <>
@@ -139,7 +145,8 @@ const currentUser = false;
                           <SignUpModal showSignUpModal={showSignUpModal} setSignUpModal={setSignUpModal}
                             setAuthModal={setAuthModal} />
                         </span> */}
-                        <span className="inline-flex rounded-md shadow">
+                        <AuthShowcase />
+                        {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm
@@ -151,8 +158,8 @@ const currentUser = false;
                           Sign In
                           </button>
                           
-                        </span>
-                        <span className="inline-flex rounded-md shadow">
+                        </span> */}
+                        {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm
@@ -164,8 +171,8 @@ const currentUser = false;
                           Sign Out
                           </button>
                           
-                        </span>
-                        <span className="inline-flex rounded-md shadow">
+                        </span> */}
+                        {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm
@@ -177,7 +184,7 @@ const currentUser = false;
                           Get Session
                           </button>
                           
-                        </span>
+                        </span> */}
                       </div>
 
                 }
@@ -251,3 +258,34 @@ const currentUser = false;
   );
 };
 export default HomeNav;
+
+const AuthShowcase: React.FC = () => {
+  const { data: sessionData } = useSession();
+
+  const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
+    undefined, // no input
+    { enabled: sessionData?.user !== undefined },
+  );
+
+  return (
+    <div className="flex flex-row items-center justify-center gap-2">
+      {sessionData && (
+        <p className="text-base text-orange-500">
+          Logged in as {sessionData?.user?.name}
+        </p>
+      )}
+      {secretMessage && (
+        <p className="text-2xl text-blue-500">{secretMessage}</p>
+      )}
+      <button
+        className="inline-flex items-center px-4 py-2 border border-transparent text-sm
+        font-medium rounded-md shadow-sm text-white bg-[#FF6F43]
+         hover:bg-[#ee8c2a] focus:outline-none
+        focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        onClick={sessionData ? () => signOut() : () => signIn()}
+      >
+        {sessionData ? "Sign out" : "Sign in"}
+      </button>
+    </div>
+  );
+};
