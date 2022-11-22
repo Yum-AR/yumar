@@ -81,15 +81,15 @@ const currentUser = false;
                 <div className="flex items-center justify-between w-full md:w-auto">
                   <a href="/">
                     <span className="sr-only">Yummr</span>
-                    <Image
+                    {/* <Image
                       width={500}
                       height={500}
                       className="h-8 w-auto sm:h-10"
                       src="https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com
                       /o/appicon.svg?alt=media&token=e1e697e6-eb8f-4f01-97f3-201ebd43b904"
-                      alt=""
+                      alt="Test"
 
-                    />
+                    /> */}
                   </a>
                   <div className="-mr-2 flex items-center md:hidden">
                     <Popover.Button className="bg-gray-50 rounded-md p-2 inline-flex items-center
@@ -208,14 +208,14 @@ const currentUser = false;
               <div className="rounded-lg shadow-md bg-white ring-1 ring-black ring-opacity-5 overflow-hidden">
                 <div className="px-5 pt-4 flex items-center justify-between">
                   <div>
-                    <Image
+                    {/* <Image
                       className="h-8 w-auto"
                       width={500}
                       height={500}
                       // eslint-disable-next-line max-len
                       src="https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/appicon.svg?alt=media&token=e1e697e6-eb8f-4f01-97f3-201ebd43b904"
                       alt="Yummr"
-                    />
+                    /> */}
                   </div>
                   <div className="-mr-2">
                     <Popover.Button className="bg-white rounded-md p-2 inline-flex items-center

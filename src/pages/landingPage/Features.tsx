@@ -30,10 +30,10 @@ const Features: React.FC = () => {
     // Default intensity is 1. Let's dim the light a small amount
     light.intensity = 0.7;
     // Our built-in 'box' shape.
-    BABYLON.SceneLoader.Append(`
-    https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/restaurants%2FRaivis_Restaurant%2F
-    `
-    , `salmon.glb?alt=media&token=f136b924-b16a-43ba-b625-072524ef188c`, scene);
+    // BABYLON.SceneLoader.Append(`
+    // https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/restaurants%2FRaivis_Restaurant%2F
+    // `
+    // , `salmon.glb?alt=media&token=f136b924-b16a-43ba-b625-072524ef188c`, scene);
     // box = BABYLON.MeshBuilder.CreateBox('box', { size: 2 }, scene)
 
     // Move the box upward 1/2 its height
@@ -112,8 +112,8 @@ const Features: React.FC = () => {
                 <a
                   rel="ar"
 
-                  href="https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/
-                  restaurants%2FRaivis_Restaurant%2Fsalmon.usdz?alt=media&token=c6823f38-0798-4c6e-baf8-8ec46c4f1b99"
+                  // href="https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/
+                  // restaurants%2FRaivis_Restaurant%2Fsalmon.usdz?alt=media&token=c6823f38-0798-4c6e-baf8-8ec46c4f1b99"
                 >
                   <Image
                     width={500}

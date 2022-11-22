@@ -22,13 +22,9 @@ import prisma from "../../../lib/prisma";
   
 // };
 
-export default NextAuth({
+export const authOptions = ({
   adapter: PrismaAdapter(prisma),
   providers: [
-    DiscordProvider({
-      clientId: env.DISCORD_CLIENT_ID,
-      clientSecret: env.DISCORD_CLIENT_SECRET,
-    }),
     EmailProvider({
       server: process.env.MAIL_SERVER,
       from: process.env.EMAIL_FROM
@@ -57,3 +53,4 @@ export default NextAuth({
 
   }
 });
+export default NextAuth(authOptions)
