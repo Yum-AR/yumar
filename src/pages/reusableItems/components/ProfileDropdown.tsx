@@ -1,14 +1,13 @@
 import React, { Fragment } from 'react';
 import { Menu, Transition } from '@headlessui/react';
-import { ChevronDownIcon } from '@heroicons/react/24/solid';
-import Image from 'next/image';
+// import Image from 'next/image';
 
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(` `);
 }
 
 const ProfileDropdown: React.FC = () => {
-    const currentUser = false;
+  const currentUser = false;
   return (
     <Menu as="div" className="ml-3 relative self-end">
       <div>
@@ -25,10 +24,10 @@ const ProfileDropdown: React.FC = () => {
           <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
             <span className="sr-only">Open user menu for </span>{currentUser ? `lol` : `No user`}
           </span>
-          <ChevronDownIcon
+          {/* <ChevronDownIcon
             className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block"
             aria-hidden="true"
-          />
+          /> */}
         </Menu.Button>
       </div>
       <Transition
@@ -49,7 +48,7 @@ const ProfileDropdown: React.FC = () => {
                 href="/ownerdashboard.html"
                 className={classNames(active ? `bg-gray-100` : ``, `block px-4 py-2 text-sm text-gray-700`)}
               >
-                                Dashboard
+                Dashboard
               </a>
             }
           </Menu.Item>
@@ -59,7 +58,7 @@ const ProfileDropdown: React.FC = () => {
                 href="index.html"
                 className={classNames(active ? `bg-gray-100` : ``, `block px-4 py-2 text-sm text-gray-700`)}
               >
-                                Logout
+                Logout
               </a>
             }
           </Menu.Item>
