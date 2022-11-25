@@ -1,28 +1,29 @@
 import React, { Fragment, useState } from 'react';
 import { type NextPage } from 'next';
 import { Popover, Transition } from '@headlessui/react';
-import { navigation } from '../reusableItems/variables/variables';
-import Image from 'next/image';
-import {XIcon, MenuIcon} from '../reusableItems/icons/icons';
+// import Image from 'next/image';
+import { XIcon, MenuIcon } from '../reusableItems/icons/icons';
 import ProfileDropdown from '../reusableItems/components/ProfileDropdown';
-import AuthModal from '../reusableItems/components/AuthModal';
-import SignUpModal from '../reusableItems/components/SignUpModal';
-import { getSession, signIn, signOut, useSession } from 'next-auth/react';
+// import AuthModal from '../reusableItems/components/AuthModal';
+// import SignUpModal from '../reusableItems/components/SignUpModal';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { trpc } from '../../utils/trpc';
-
+import Link from 'next/link'
 const HomeNav: NextPage = () => {
-  const [ showAuthModal, setAuthModal ] = useState(false);
-  const [ showSignUpModal, setSignUpModal ] = useState(false);
+  const [showAuthModal, setAuthModal] = useState(false);
+  const [showSignUpModal, setSignUpModal] = useState(false);
   //const btnSignIn = document.getElementById("btnSignIn");
   //const spnSignIn = document.getElementById("spnSignIn");
   //const session = getSession();
+  // const router = useRouter();
   const { data: session, status } = useSession();
+  console.log(session, status, `status`)
   //if (status === "authenticated") {
-    //return <p>Signed in as {session.user.email}</p>
-    //spnSignIn.style.display = "none";
+  //return <p>Signed in as {session.user.email}</p>
+  //spnSignIn.style.display = "none";
   //}
 
-const currentUser = false;
+
   return (
     <>
       <div className="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" aria-hidden="true">
@@ -107,18 +108,17 @@ const currentUser = false;
                   aria-hidden="true">
                   <div className="w-[4%] border-t opacity-[0.5] border-gray-300" />
                 </div>
-                {navigation.map((item) =>
-                  <a key={item.name} href={item.href} className="font-medium text-gray-500 hover:text-gray-900 px-4">
+                <Link href="/restaurantSearch/RestaurantSearch" legacyBehavior><a className="font-medium text-gray-500 hover:text-gray-900 px-4"> Find a Restaurant
+                </a></Link>
 
-                    {item.name}
-                  </a>)}
+
               </div>
               <div className="md:flex">
                 {
-                  currentUser
+                  session
                     ? <ProfileDropdown className="object-right-top"></ProfileDropdown>
                     : <div className="hidden md:flex md:items-center md:justify-end md:inset-y-0 md:right-0 space-x-6">
-                        {/* <span className="inline-flex rounded-md shadow">
+                      {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border
@@ -131,7 +131,7 @@ const currentUser = false;
                           <AuthModal showAuthModal={showAuthModal} setAuthModal={setAuthModal}
                             setSignUpModal={setSignUpModal} />
                         </span> */}
-                        {/* <span className="inline-flex rounded-md shadow">
+                      {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm
@@ -145,8 +145,8 @@ const currentUser = false;
                           <SignUpModal showSignUpModal={showSignUpModal} setSignUpModal={setSignUpModal}
                             setAuthModal={setAuthModal} />
                         </span> */}
-                        <AuthShowcase />
-                        {/* <span className="inline-flex rounded-md shadow">
+                      <AuthShowcase />
+                      {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm
@@ -159,7 +159,7 @@ const currentUser = false;
                           </button>
                           
                         </span> */}
-                        {/* <span className="inline-flex rounded-md shadow">
+                      {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm
@@ -172,7 +172,7 @@ const currentUser = false;
                           </button>
                           
                         </span> */}
-                        {/* <span className="inline-flex rounded-md shadow">
+                      {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
                             className="inline-flex items-center px-4 py-2 border border-transparent text-sm
@@ -185,7 +185,7 @@ const currentUser = false;
                           </button>
                           
                         </span> */}
-                      </div>
+                    </div>
 
                 }
               </div>
@@ -228,25 +228,18 @@ const currentUser = false;
                   </div>
                 </div>
                 <div className="px-2 pt-2 pb-3">
-                  {navigation.map((item) =>
-                    <a
-                      key={item.name}
-                      href={item.href}
-                      className="block px-3 py-2 rounded-md text-base font-medium
-                       text-gray-700 hover:text-gray-900 hover:bg-gray-50"
-                    >
-                      {item.name}
-                    </a>)}
+                  <Link href="/restaurantSearch" legacyBehavior><a className="font-medium text-gray-500 hover:text-gray-900 px-4"> Find a Restaurant
+                  </a></Link>
                 </div>
-                {currentUser
+                {session
                   ? <></>
                   : <button
-                      onClick={() => setAuthModal(true)}
-                      className="block w-full px-5 py-3 text-center font-medium
+                    onClick={() => setAuthModal(true)}
+                    className="block w-full px-5 py-3 text-center font-medium
                        text-indigo-600 bg-gray-50 hover:bg-gray-100"
-                    >
+                  >
                     Log in
-                    </button>
+                  </button>
                 }
 
               </div>
