@@ -21,6 +21,7 @@ export const restaurantRouter = router({
                 RestaurantAddress: true,
                 RestaurantInformation: true,
                 RestaurantSettings: true,
+                MenuItems: true,
             }
         })
     })
