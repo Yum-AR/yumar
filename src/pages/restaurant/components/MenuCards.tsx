@@ -7,58 +7,19 @@ import { useRouter } from 'next/router';
 // import { useActiveRestaurantContext } from '../../../../src/context/ActiveRestaurantContext';
 import Image from 'next/image';
 
-const MenuCards: React.FC<{ menuItems: any, restaurant: any }> = ({ menuItems, restaurant }) => {
+const MenuCards: React.FC<{ restaurant: any }> = ({ restaurant }) => {
     console.log(`ACTIVE`);
     const [isOpen, setIsOpen] = useState(false);
-    const [webURL, setWebURL] = useState();
+    const [webURL, setWebURL] = useState<string>();
     const [usdzURL, setUsdzURL] = useState();
     const [foodName, setFoodName] = useState();
-    const menuHeadersArr = [`salad`, `burger`, `salad`, `burger`, `dessert`];
-    const foodArr = [[]];
-    // for (let header of menuHeadersArr) {
-    //    foodArr.push([])
-    // }
-    // console.log(foodArr)
-    const router = useRouter();
-    // let restaurantURL = router.query.id
-    // ! implement appropiate model from Prisma
-    // const getRandData = async () => {
-    //     let data;
-    //     const restaurantCollection = collection(db, 'Restaurant')
-    //     const q = query(restaurantCollection, where('restaurantID', '==', restaurantURL))
-    //     await getDocs(q)
-    //         .then((querySnapshot) => {
-    //             const restaurantData = querySnapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-    //             console.log(restaurantData, 'res data')
-    //             data = restaurantData
-    //             return data
-    //         })
-    //         .catch((err) => {
-    //             console.log(err)
-    //         })
-    //     return data
-    // }
-    // if (restaurant === undefined) {
-    //     const localData = localStorage.getItem('restaurantMenu')
-    //     getRandData().then((data) => {
-    //         restaurant = data[0]
-    //     })
-    //     restaurant = JSON.parse(localData)
-    // } else {
-    //     localStorage.setItem('restaurantMenu', JSON.stringify(restaurant))
-    // }
-
-    if (!restaurant) {
-
-    }
-
-    for (let i = 0; i < menuHeadersArr.length; i++) {
-        foodArr.push([]);
-
-    }
-    for (let i = 0; i < menuItems.length; i++) {
-        foodArr[menuItems[i].menuHeaderID].push(menuItems[i]);
-    }
+    const menuItems = restaurant.MenuItems
+    const sortedMenuItems = menuItems.reduce((acc, curr) => {
+        acc[curr.menuHeaderId] = acc[curr.menuHeaderId] || []
+        acc[curr.menuHeaderId].push(curr)
+        return acc
+    }, Object.create(null))
+    console.log(sortedMenuItems, `menu items`)
     const onSceneReady = (scene: BABYLON.Nullable<BABYLON.Scene> | undefined) => {
 
         let model;
@@ -99,7 +60,7 @@ const MenuCards: React.FC<{ menuItems: any, restaurant: any }> = ({ menuItems, r
     };
     return (
         <>
-            {foodArr.map((section, index) =>
+            {sortedMenuItems.map((section, index) =>
                 <>
                     {restaurant ? <h1 id={restaurant.menuHeaderArray[index]}
                         className="text-[2rem] font-bold m-8 ml-8">{
@@ -115,16 +76,14 @@ const MenuCards: React.FC<{ menuItems: any, restaurant: any }> = ({ menuItems, r
                                             src={
                                                 item.thumbnailURL
                                                     ? item.thumbnailURL
-                                                    : `https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/
-                      menuDefault.png?alt=media&token=e3fc6f48-4489-4243-b457-680edfdcbd6c`
+                                                    : `/images/menuDefault.png`
                                             } alt="" />
                                     </div>
                                     <div className="flex-1 bg-white p-6 flex flex-col justify-between">
                                         <div className="flex-1">
                                             <button onClick={() => {
                                                 setIsOpen(true); if (item.webURL) { setWebURL(item.webURL); } else {
-                                                    setWebURL(`https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/restaurants
-                           %2FYummrBakery%2FBread.glb?alt=media&token=3233accf-ed5b-4575-83b4-4a9a2ed2be25`);
+                                                    setWebURL(`https://s3.us-east-1.wasabisys.com/yumar/Bread.glb`);
                                                 }
                                                 setUsdzURL(item.modelURL); setFoodName(item.menuItem);
                                             }}
