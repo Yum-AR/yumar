@@ -6,13 +6,58 @@ import NavBar from '../reusableItems/components/NavBar';
 import GenreBadge from '../reusableItems/components/GenreBadge';
 import MenuCards from './components/MenuCards';
 import { trpc } from '../../utils/trpc';
+interface IRestaurantAddress {
+    city: string;
+    restuarantAddressId: number;
+    state: string;
+    street: string;
+    zip: string;
+}
 
+interface IRestaurantSettings {
+    priceRange: string;
+    restaurantHeaderImageUrl: string;
+    restaurantSettingsId: number;
+    restaurantThumbnailUrl: string;
+}
+interface IMenuItems{
+    isPublished: boolean;
+    itemDescription: string;
+    itemPrice: string;
+    lastUpdatedDate: Date;
+    menuHeaderId: number;
+    menuItem: string;
+    menuItemId: number;
+    modelApproval: boolean;
+    modelUpdate?: Date;
+    modelUrl: string;
+    restaurantId: number;
+    scaleCompensation?: number;
+    thumbnailUrl: string;
+    userId?: number;
+}
+interface IRestaurant {
+    RestaurantAddress: IRestaurantAddress;
+    RestaurantInformation: any[];
+    MenuItems: IMenuItems[];
+    RestaurantSettings: IRestaurantSettings;
+    isApproved: boolean;
+    isFeatured: boolean;
+    restaurantAddressId: number;
+    restaurantDescription: string;
+    restaurantId: number;
+    restaurantName: string;
+    restaurantSettingsId: number;
+    userId: number | null;
+    websiteUrl: string;
+
+}
 const RestaurantPage: React.FC = () => {
     const router = useRouter();
     console.log(router, `router`)
     const restaurantId = router.query.restaurantId as string;
-    const { data } = trpc.restaurant.getRestaurant.useQuery({ isApproved: true, restaurantId })
-    const activeRestaurant = data[0]
+    const { data } = trpc.restaurant.getRestaurant.useQuery({ isApproved: true, restaurantId }) as any
+    const activeRestaurant: IRestaurant = data![0]
     console.log(activeRestaurant, `active`)
     const weekday = [`Sunday`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday`];
     const date = new Date();
@@ -32,14 +77,13 @@ const RestaurantPage: React.FC = () => {
     //   setFilteredItems(filteredFoodMenu);
     // };
     return (
-        /* This example requires Tailwind CSS v2.0+ */
         <>
             <html className="scroll-smooth" style={{ scrollBehavior: `smooth` }}>
                 <NavBar />
                 <div className="bg-white w-[100vw]">
                     <div aria-hidden="true" className="relative">
                         <Image width="100" height="100"
-                            src={activeRestaurant ? activeRestaurant.RestaurantSettings.restaurantHeaderImageURL
+                            src={activeRestaurant ? activeRestaurant.RestaurantSettings?.restaurantHeaderImageUrl
                                 // eslint-disable-next-line max-len
                                 : `https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/defaultBackgroundHeader.png?alt=media&token=5e5b463a-6feb-4207-b4a8-ce9912d6198f`}
                             alt=""
@@ -61,9 +105,8 @@ const RestaurantPage: React.FC = () => {
                                             <a
                                                 className=" mt-2 text-[#868686] text-sm"
                                                 target="_blank"
-                                                href={`
-                      https://www.google.com/maps/place/
-                      ${activeRestaurant.RestaurantAddress.street.replaceAll(` `, `+`)}
+                                                href={` https://www.google.com/maps/place/
+                         ${activeRestaurant?.RestaurantAddress.street.replaceAll(` `, `+`)}
                       +${activeRestaurant.RestaurantAddress.city.replaceAll(` `, `+`)}
                       ,+${activeRestaurant.RestaurantAddress.state}
                       +${activeRestaurant.RestaurantAddress.zip}`}
@@ -77,7 +120,9 @@ const RestaurantPage: React.FC = () => {
 
                                         <div className='flex'>
                                             <p className=" mt-2 text-[#868686] text-sm text-left" >
-                                                {activeRestaurant.restaurantInformation.hours[day]}</p>
+                                                {activeRestaurant.RestaurantInformation.map(time => (
+                                                    <p>{`${time.startHour} - ${time.endHour}`}</p>
+                                                ))}</p>
                                         </div>
                                         <div className="flex">
                                             <a className="mt-2 text-[#868686] text-sm"
@@ -107,7 +152,7 @@ const RestaurantPage: React.FC = () => {
                  border-b-2 border-black-100 p-3 flex-col mt-10 justify-center">
                                     <ul className="w-[full] inline-flex md:justify-center">
                                         {
-                                            activeRestaurant ? activeRestaurant.menuHeaderArray.map((item, index) =>
+                                            activeRestaurant ? activeRestaurant.MenuItems.map((item, index) =>
                                                 <li key={index} className="mr-6 m-2 h-full font-semibold rounded text-center
                          hover:drop-shadow-xl active:underline transition-all
                          hover:underline hover:cursor-pointer">
@@ -122,7 +167,7 @@ const RestaurantPage: React.FC = () => {
                             </div>
                         </div>
                         <div className="bg-blue w-3 h-10"></div>
-                        <MenuCards restaurant={activeRestaurant} menuItems={menuItemArray} />
+                        <MenuCards restaurant={activeRestaurant}/>
                     </div>
                 </div>
             </html>
