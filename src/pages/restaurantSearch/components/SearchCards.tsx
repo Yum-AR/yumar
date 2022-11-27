@@ -14,7 +14,7 @@ interface IRestaurantSettings {
     priceRange: string;
     restuarantHeaderImageUrl: string;
     restaurantSettingsId: number;
-    restaurantThumbnailUrl: string;
+    restaurantThumbnailImageUrl: string;
 }
 interface IRestaurant {
     RestaurantAddress: IRestaurantAddress;
@@ -43,12 +43,11 @@ const SearchCards: React.FC<{ restaurantArray: IRestaurant[] }> = ({ restaurantA
                             <div className=" m-5 mb-10">
                                 <li key={item.restaurantAddressId} className="bg-white shadow
               hover:shadow-md  transition-all overflow-hidden w-[100%] sm:rounded-md">
-                                    {console.log(item.restaurantAddressId, `idddd`)}
                                     <Link href={`/restaurant/1`}>
                                         <div className="flex flex-col cursor-pointer">
                                             <div className="max-w-[100%] p-3 cursor-pointer">
                                                 <Image width={`500`} height={`100`} className="h-96 object-contain rounded"
-                                                    src={item.RestaurantSettings.restaurantThumbnailUrl ?? `https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2
+                                                    src={item.RestaurantSettings.restaurantThumbnailImageUrl ?? `https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2
                           .1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80`}
                                                     alt="" />
                                             </div>
