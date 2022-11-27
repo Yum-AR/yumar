@@ -11,7 +11,7 @@ function classNames(...classes: string[]): string {
 const ProfileDropdown: React.FC = () => {
   const { session } = useSession();
   return (
-    <Menu as="div" className="ml-3 relative self-end">
+    <Menu as="div" className="ml-3 object-right-top relative self-end">
       <div>
         <Menu.Button className="max-w-xs  rounded-full flex transition-all items-center
         text-sm focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-gray-200

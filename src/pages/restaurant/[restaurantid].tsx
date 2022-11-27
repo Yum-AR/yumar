@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+import { NextPageContext } from 'next';
 import NavBar from '../reusableItems/components/NavBar';
 import GenreBadge from '../reusableItems/components/GenreBadge';
 import { trpc } from '../../utils/trpc';
@@ -51,30 +52,18 @@ interface IRestaurant {
   websiteUrl: string;
 
 }
-const RestaurantPage: React.FC = () => {
-  const router = useRouter();
-  console.log(router, `router`);
-  const restaurantId = router.query.restaurantId as string;
-  const { data } = trpc.restaurant.getRestaurant.useQuery({ isApproved: true, restaurantId });
-  const activeRestaurant: IRestaurant = data[0];
-  console.log(activeRestaurant, `active`);
-  const weekday = [ `Sunday`, `Monday`, `Tuesday`, `Wednesday`, `Thursday`, `Friday`, `Saturday` ];
-  const date = new Date();
-  const day = weekday[date.getDay()];
-  console.log(`DAY`, day);
 
-  // ! implement appropiate model from Prisma
-  // const filterItems = (index) => {
-  //   console.log(index);
-  //   console.log(menuItemArray);
-  //   const filteredFoodMenu = [];
-  //   for (const item of menuItemArray) {
-  //     if (item.menuHeaderID === index) {
-  //       filteredFoodMenu.push(item);
-  //     }
-  //   }
-  //   setFilteredItems(filteredFoodMenu);
-  // };
+export async function getServerSideProps(context: NextPageContext) {
+  const { query } = context;
+  const restaurantId = query.restaurantId as string;
+  console.log(query, `weurr`);
+  const data = await fetch(`/api/getRestaurant`);
+  console.log(data);
+  return { props: { data } };
+
+}
+const RestaurantPage: React.FC<{data: IRestaurant}> = ({ data: activeRestaurant }) => {
+  console.log(activeRestaurant, `ssr`);
   return (
     <>
       <html className="scroll-smooth" style={{ scrollBehavior: `smooth` }}>
@@ -83,7 +72,6 @@ const RestaurantPage: React.FC = () => {
           <div aria-hidden="true" className="relative">
             <Image width="100" height="100"
               src={activeRestaurant ? activeRestaurant.RestaurantSettings?.restaurantHeaderImageUrl
-
                 : `/images/defaultBackgroundHeader.jpg`}
               alt=""
               className="w-full h-96 object-center object-cover opacity-90 bg-black"
@@ -150,20 +138,19 @@ const RestaurantPage: React.FC = () => {
                  border-b-2 border-black-100 p-3 flex-col mt-10 justify-center">
                   <ul className="w-[full] inline-flex md:justify-center">
                     {
-                      activeRestaurant ? activeRestaurant.MenuItems.map((item) =>
+                      activeRestaurant?.MenuItems.map((item) =>
                         <li key={item.menuItemId} className="mr-6 m-2 h-full font-semibold rounded text-center
                          hover:drop-shadow-xl active:underline transition-all
                          hover:underline hover:cursor-pointer">
                           {item.menuHeaderId}
                         </li>)
-                        : <h1>{`"Loading"`}</h1>
                     }
                   </ul>
                 </div>
               </div>
             </div>
             <div className="bg-blue w-3 h-10"/>
-            <MenuCards restaurant={activeRestaurant}/>
+            {/* <MenuCards restaurant={activeRestaurant}/> */}
           </div>
         </div>
       </html>

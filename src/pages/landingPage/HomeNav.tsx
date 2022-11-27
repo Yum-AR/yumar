@@ -24,8 +24,8 @@ const HomeNav: NextPage = () => {
   // }
 
   return (
-    <>
-      <div className="hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" aria-hidden="true">
+    <React.Fragment>
+      <div className="justify-between hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" aria-hidden="true">
         <div className="relative h-full max-w-7xl mx-auto">
           <svg
             className="absolute right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2"
@@ -116,7 +116,7 @@ const HomeNav: NextPage = () => {
               <div className="md:flex">
                 {
                   session
-                    ? <ProfileDropdown className="object-right-top"></ProfileDropdown>
+                    ? <ProfileDropdown />
                     : <div className="hidden md:flex md:items-center md:justify-end md:inset-y-0 md:right-0 space-x-6">
                         {/* <span className="inline-flex rounded-md shadow">
                           <button
@@ -212,7 +212,6 @@ const HomeNav: NextPage = () => {
                       className="h-8 w-auto"
                       width={500}
                       height={500}
-
                       src="/appicon.svg"
                       alt="Yummr"
                     />
@@ -249,7 +248,7 @@ const HomeNav: NextPage = () => {
           </Transition>
         </Popover>
       </div >
-    </>
+    </React.Fragment>
   );
 };
 export default HomeNav;
