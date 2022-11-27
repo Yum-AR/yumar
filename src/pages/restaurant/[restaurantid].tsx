@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-scroll';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import NavBar from '../reusableItems/components/NavBar';
@@ -149,19 +148,17 @@ const RestaurantPage: React.FC = () => {
                 <div id="fixedHeaderNav" className="flex bg-[#FFFFFF] min-w-full
                  overflow-auto fixed  max-w-[100vw] whitespace-nowrap
                  border-b-2 border-black-100 p-3 flex-col mt-10 justify-center">
-                  {/* <ul className="w-[full] inline-flex md:justify-center">
+                  <ul className="w-[full] inline-flex md:justify-center">
                     {
                       activeRestaurant ? activeRestaurant.MenuItems.map((item) =>
                         <li key={item.menuItemId} className="mr-6 m-2 h-full font-semibold rounded text-center
                          hover:drop-shadow-xl active:underline transition-all
                          hover:underline hover:cursor-pointer">
-                          <Link smooth={true} to={`${item}`} spy={true} className={item} activeClass="active">
-                            {item}
-                          </Link>
+                          {item.menuHeaderId}
                         </li>)
                         : <h1>{`"Loading"`}</h1>
                     }
-                  </ul> */}
+                  </ul>
                 </div>
               </div>
             </div>

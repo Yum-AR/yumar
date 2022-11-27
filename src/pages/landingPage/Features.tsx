@@ -1,12 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { transferFeatures, communicationFeatures } from '../reusableItems/variables/variables';
 import * as BABYLON from 'babylonjs';
+import { communicationFeatures, transferFeatures } from '../reusableItems/variables/variables';
 import SceneComponent from '../reusableItems/components/Scene';
 import 'babylonjs-loaders';
-
-
-
 
 const Features: React.FC = () => {
   const onSceneReady = (scene: any): void => {
@@ -29,16 +26,8 @@ const Features: React.FC = () => {
 
     // Default intensity is 1. Let's dim the light a small amount
     light.intensity = 0.7;
-    // Our built-in 'box' shape.
-    // BABYLON.SceneLoader.Append(`
-    // https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/restaurants%2FRaivis_Restaurant%2F
-    // `
-    // , `salmon.glb?alt=media&token=f136b924-b16a-43ba-b625-072524ef188c`, scene);
-    // box = BABYLON.MeshBuilder.CreateBox('box', { size: 2 }, scene)
-
-    // Move the box upward 1/2 its height
-
-    // Our built-in 'ground' shape.
+    BABYLON.SceneLoader.Append(`https://s3.us-east-1.wasabisys.com/yumar/defaultModels/`
+      , `salmon.glb`, scene);
   };
 
   return (

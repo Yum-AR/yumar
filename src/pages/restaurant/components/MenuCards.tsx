@@ -1,11 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
+import Image from 'next/image';
 import { XIcon } from '../../reusableItems/icons/icons';
 import 'babylonjs-loaders';
 import SceneComponent from '../../reusableItems/components/Scene';
-import { useRouter } from 'next/router';
-// import { useActiveRestaurantContext } from '../../../../src/context/ActiveRestaurantContext';
-import Image from 'next/image';
 
 interface IRestaurantAddress {
   city: string;
@@ -61,7 +63,7 @@ const MenuCards: React.FC<{ restaurant: IRestaurant }> = ({ restaurant }) => {
   const [ usdzURL, setUsdzURL ] = useState<string>();
   const [ foodName, setFoodName ] = useState<string>(`hi`);
   const menuItems = restaurant.MenuItems;
-  const sortedMenuItems = menuItems.reduce((acc, curr) => {
+  const sortedMenuItems: any[] = menuItems.reduce((acc: any[], curr) => {
     acc[curr.menuHeaderId] = acc[curr.menuHeaderId] || [];
     acc[curr.menuHeaderId].push(curr);
     return acc;
@@ -69,7 +71,6 @@ const MenuCards: React.FC<{ restaurant: IRestaurant }> = ({ restaurant }) => {
   console.log(sortedMenuItems, `menu items`);
   const onSceneReady = (scene: BABYLON.Nullable<BABYLON.Scene> | undefined) => {
 
-    let model;
     // This creates and positions a free camera (non-mesh)
     const camera = new BABYLON.ArcRotateCamera(
       `camera`,
@@ -77,8 +78,8 @@ const MenuCards: React.FC<{ restaurant: IRestaurant }> = ({ restaurant }) => {
       new BABYLON.Vector3(0, 0, 0), scene,
     );
 
-    camera.lowerRadiusLimit = 2.7;
-    camera.upperRadiusLimit = 2.7;
+    camera.lowerRadiusLimit = 4.7;
+    camera.upperRadiusLimit = 4.7;
     // This targets the camera to scene origin
     camera.setTarget(BABYLON.Vector3.Zero());
 
@@ -91,15 +92,15 @@ const MenuCards: React.FC<{ restaurant: IRestaurant }> = ({ restaurant }) => {
     light.intensity = 0.7;
     const url: string | undefined = webURL?.split(`wasabisys`);
     console.log(url);
-    model = BABYLON.SceneLoader.Append(`${url[0]}wasabisys`, url[1], scene);
+    BABYLON.SceneLoader.Append(`${url[0]}wasabisys`, url[1], scene);
   };
   return (
     <>
       <div>
         {sortedMenuItems.map((section, index) =>
           <>
-            {<h1 key={restaurant.MenuItems.menuItemId} id={restaurant.MenuItems[index]}
-              className="text-[2rem] font-bold m-8 ml-8">{restaurant.MenuItems[index].toString()}</h1>}
+            {<h1 key={index}
+              className="text-[2rem] font-bold m-8 ml-8">{section[index].menuHeaderId.toString()}</h1>}
             <div className="max-w-lg ml-4 mr-8 mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
               {section.map((item: IMenuItems) => {
                 console.log(section, `section`);
