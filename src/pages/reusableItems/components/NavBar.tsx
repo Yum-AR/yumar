@@ -7,8 +7,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import ProfileDropdown from './ProfileDropdown';
-import AuthModal from './AuthModal';
-import SignUpModal from './SignUpModal';
+// import AuthModal from './AuthModal';
+// import SignUpModal from './SignUpModal';
 
 const userNavigation = [
   { name: `Your Profile`, href: `#` },
@@ -17,8 +17,8 @@ const userNavigation = [
 ];
 
 const NavBar: React.FC = () => {
-  const [ showAuthModal, setAuthModal ] = useState(false);
-  const [ showSignUpModal, setSignUpModal ] = useState(false);
+  // const [ showAuthModal, setAuthModal ] = useState(false);
+  // const [ showSignUpModal, setSignUpModal ] = useState(false);
   const { data: session } = useSession();
   const [ open, setOpen ] = useState();
   return (
@@ -87,43 +87,7 @@ const NavBar: React.FC = () => {
                   {/* Profile dropdown */}
                   <Menu as="div" className="flex-shrink-0 relative ml-5">
                     <div>
-                      {
-                        session
-                          ? <ProfileDropdown/>
-                          : <div className="md:inset-y-0 md:right-0 space-x-6">
-                              <span className=" rounded-md shadow">
-                                <button
-                                  type="button"
-                                  className="items-center px-4 py-2 border border-transparent text-base
-                                 font-medium rounded-md text-[#FF6F43] bg-white hover:bg-gray-50"
-                                  onClick={() => setAuthModal(true)}
-                                >
-                                                                Log in
-                                </button>
-                                <AuthModal
-                                  showAuthModal={showAuthModal}
-                                  setAuthModal={setAuthModal}
-                                  setSignUpModal={setSignUpModal} />
-                              </span>
-                              <span className="inline-flex rounded-md shadow">
-                                <button
-                                  type="button"
-                                  className="inline-flex items-center px-4 py-2 border border-transparent
-                                text-sm font-medium rounded-md shadow-sm text-white bg-[#FF6F43]
-                                 hover:bg-[#ee8c2a] focus:outline-none focus:ring-2 focus:ring-offset-2
-                                  focus:ring-indigo-500"
-                                  onClick={() => setSignUpModal(true)}
-                                >
-                                                                Sign Up
-                                </button>
-                                <SignUpModal
-                                  showSignUpModal={showSignUpModal}
-                                  setSignUpModal={setSignUpModal}
-                                  setAuthModal={setAuthModal} />
-                              </span>
-                            </div>
-
-                      }
+                      {session ? <ProfileDropdown/> : ``}
                     </div>
                     <Transition
                       as={Fragment}

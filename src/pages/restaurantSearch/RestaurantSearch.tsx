@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+
 import React, { Fragment, useState } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid';
@@ -11,58 +11,10 @@ function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(` `);
 }
 
-interface IRestaurantAddress {
-  city: string;
-  restuarantAddressId: number;
-  state: string;
-  street: string;
-  zip: string;
-}
-
-interface IRestaurantSettings {
-  priceRange: string;
-  restaurantHeaderImageUrl: string;
-  restaurantSettingsId: number;
-  restaurantThumbnailUrl: string;
-}
-interface IMenuItems{
-  isPublished: boolean;
-  itemDescription: string;
-  itemPrice: string;
-  lastUpdatedDate: Date;
-  menuHeaderId: number;
-  menuItem: string;
-  menuItemId: number;
-  modelApproval: boolean;
-  modelUpdate?: Date;
-  modelUrl: string;
-  restaurantId: number;
-  scaleCompensation?: number;
-  thumbnailUrl: string;
-  userId?: number;
-}
-interface IRestaurant {
-  RestaurantAddress: IRestaurantAddress;
-  RestaurantInformation: any[];
-  MenuItems: IMenuItems[];
-  RestaurantSettings: IRestaurantSettings;
-  isApproved: boolean;
-  isFeatured: boolean;
-  restaurantAddressId: number;
-  restaurantDescription: string;
-  restaurantId: number;
-  restaurantName: string;
-  restaurantSettingsId: number;
-  userId: number | null;
-  websiteUrl: string;
-
-}
-
 const RestaurantSearch: React.FC = () => {
 
   const [ mobileFiltersOpen, setMobileFiltersOpen ] = useState(false);
-  const { data: restaurants }: {
-    data: any | IRestaurant[];} = trpc.restaurant.getRestaurants.useQuery({ isApproved: true });
+  const { data: restaurants } = trpc.restaurant.getRestaurants.useQuery({ isApproved: true });
   console.log(restaurants, `restaurant data`);
 
   return (
@@ -263,7 +215,7 @@ const RestaurantSearch: React.FC = () => {
               {/* Product grid */}
               <div className="lg:col-span-3">
                 {/* Replace with your content */}
-                {restaurants !== undefined ? <SearchCards restaurantArray={restaurants} />
+                {restaurants !== undefined ? <SearchCards />
                   : <h1>{`No Restaurants`}</h1>}
                 {/* /End replace */}
               </div>
