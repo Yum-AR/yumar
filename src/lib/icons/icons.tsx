@@ -11,7 +11,6 @@ export function ARIcon() {
   );
 }
 
-
 export function CameraIcon() {
   return (
 
@@ -24,7 +23,6 @@ export function CameraIcon() {
   );
 }
 
-
 export function ClosedLockIcon() {
   return <svg xmlns="http://www.w3.org/2000/svg"
     className="h-5 w-5 pr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -32,7 +30,6 @@ export function ClosedLockIcon() {
       d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
   </svg>;
 }
-
 
 export function DeviceIcon() {
   return (
@@ -76,7 +73,6 @@ export function MailIcon() {
   );
 }
 
-
 export function MenuIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6"
@@ -85,7 +81,6 @@ export function MenuIcon() {
     </svg>
   );
 }
-
 
 export function QRIcon() {
   return (
@@ -98,7 +93,6 @@ export function QRIcon() {
     </svg>
   );
 }
-
 
 export function SaveIcon() {
   return (
@@ -145,7 +139,6 @@ export function SaveIcon() {
     </svg>
   );
 }
-
 
 export function SearchIcon() {
   return (
