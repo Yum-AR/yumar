@@ -10,7 +10,8 @@ const CallToAction: NextPage = () =>
           width={500}
           height={500}
           className="h-30 w-full object-cover lg:absolute lg:h-full"
-          src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
+          src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?ixlib=rb-1.2.1
+          &ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80"
           alt=""
         />
       </div>
@@ -19,7 +20,7 @@ const CallToAction: NextPage = () =>
            sm:py-24 sm:px-6 lg:px-8 lg:max-w-7xl lg:mx-auto lg:py-32 lg:grid lg:grid-cols-2">
       <div className="lg:pr-8">
         <div className="max-w-md mx-auto sm:max-w-lg lg:mx-0">
-          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Let's work together</h2>
+          <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Let&aposs work together</h2>
           <p className="mt-4 text-lg text-gray-500 sm:mt-3">
                   We’d love to hear from you! If you have any questions or would like to add your restaurant
                   to our platform.  Send us a message below, or email support@yummr.io.

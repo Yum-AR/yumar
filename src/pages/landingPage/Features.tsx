@@ -1,7 +1,12 @@
+/* eslint-disable react/no-unescaped-entities */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 import React from 'react';
 import Image from 'next/image';
 import * as BABYLON from 'babylonjs';
-import { communicationFeatures, transferFeatures } from '../reusableItems/variables/variables';
+import { communicationFeatures, transferFeatures } from '../../lib/variables/variables';
 import SceneComponent from '../reusableItems/components/Scene';
 import 'babylonjs-loaders';
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Fragment, useState } from 'react';
 import { Menu, Popover, Transition } from '@headlessui/react';
 import { SearchIcon } from '@heroicons/react/solid';
@@ -8,12 +9,6 @@ import { useSession } from 'next-auth/react';
 import ProfileDropdown from './ProfileDropdown';
 import AuthModal from './AuthModal';
 import SignUpModal from './SignUpModal';
-const user = {
-  name: `Chlsea Hagon`,
-  email: `chelseahagon@example.com`,
-  imageUrl:
-        `https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com/o/icons%2Fperson.fill.svg?alt=media&token=d15cd625-303a-4a30-b9d0-b92849b925cd`,
-};
 
 const userNavigation = [
   { name: `Your Profile`, href: `#` },
@@ -63,8 +58,10 @@ const NavBar: React.FC = () => {
                         <input
                           id="search"
                           name="search"
-                          className="block w-full invisible bg-white border border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm
-                           placeholder-gray-500 focus:outline-none focus:text-gray-900 focus:placeholder-gray-400 focus:ring-1
+                          className="block w-full invisible bg-white border
+                           border-gray-300 rounded-md py-2 pl-10 pr-3 text-sm
+                           placeholder-gray-500 focus:outline-none focus:text-gray-900
+                            focus:placeholder-gray-400 focus:ring-1
                             focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                           placeholder="Search"
                           type="search"
@@ -76,7 +73,8 @@ const NavBar: React.FC = () => {
                 <div className="flex items-center md:absolute md:right-0 md:inset-y-0 lg:hidden">
                   {/* Mobile menu button */}
                   <Popover.Button className="-mx-2 rounded-md p-2 inline-flex items-center justify-center text-gray-400
-                   hover:bg-gray-100 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                   hover:bg-gray-100 hover:text-gray-500 focus:outline-none
+                   focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                     <span className="sr-only">Open menu</span>
                     {open
                       ? <XIcon className="block h-6 w-6" aria-hidden="true" />
@@ -91,7 +89,7 @@ const NavBar: React.FC = () => {
                     <div>
                       {
                         session
-                          ? <ProfileDropdown className="object-right-top"></ProfileDropdown>
+                          ? <ProfileDropdown/>
                           : <div className="md:inset-y-0 md:right-0 space-x-6">
                               <span className=" rounded-md shadow">
                                 <button
@@ -102,7 +100,10 @@ const NavBar: React.FC = () => {
                                 >
                                                                 Log in
                                 </button>
-                                <AuthModal showAuthModal={showAuthModal} setAuthModal={setAuthModal} setSignUpModal={setSignUpModal} />
+                                <AuthModal
+                                  showAuthModal={showAuthModal}
+                                  setAuthModal={setAuthModal}
+                                  setSignUpModal={setSignUpModal} />
                               </span>
                               <span className="inline-flex rounded-md shadow">
                                 <button
@@ -115,7 +116,10 @@ const NavBar: React.FC = () => {
                                 >
                                                                 Sign Up
                                 </button>
-                                <SignUpModal showSignUpModal={showSignUpModal} setSignUpModal={setSignUpModal} setAuthModal={setAuthModal} />
+                                <SignUpModal
+                                  showSignUpModal={showSignUpModal}
+                                  setSignUpModal={setSignUpModal}
+                                  setAuthModal={setAuthModal} />
                               </span>
                             </div>
 
@@ -154,11 +158,12 @@ const NavBar: React.FC = () => {
               <div className="border-t border-gray-200 pt-4 pb-3">
                 <div className="max-w-3xl mx-auto px-4 flex items-center sm:px-6">
                   <div className="flex-shrink-0">
-                    <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                    {/* <Image className="h-10 w-10 rounded-full"
+                      src={session?.user?.image} width={100} height={100}alt="" /> */}
                   </div>
                   <div className="ml-3">
-                    <div className="text-base font-medium text-gray-800">{user.name}</div>
-                    <div className="text-sm font-medium text-gray-500">{user.email}</div>
+                    <div className="text-base font-medium text-gray-800">{session?.user?.name}</div>
+                    <div className="text-sm font-medium text-gray-500">{session?.user?.email}</div>
                   </div>
                   <button
                     type="button"
@@ -174,7 +179,8 @@ const NavBar: React.FC = () => {
                     <a
                       key={item.name}
                       href={item.href}
-                      className="block rounded-md py-2 px-3 text-base font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+                      className="block rounded-md py-2 px-3 text-base
+                      font-medium text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                     >
                       {item.name}
                     </a>)}

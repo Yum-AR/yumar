@@ -1,10 +1,16 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable no-shadow */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Engine, Scene } from 'babylonjs';
 import { NextPage } from 'next';
 import React, { useEffect, useRef } from 'react';
 
 const SceneComponent: NextPage<any> = (props) => {
-  const reactCanvas = useRef(null);
+  const reactCanvas: any = useRef(null);
   const {
     antialias,
     engineOptions,
@@ -30,9 +36,9 @@ const SceneComponent: NextPage<any> = (props) => {
       scene.clearColor = new BABYLON.Color4(0, 0, 0, 0);
 
       if (scene.isReady()) {
-        props.onSceneReady(scene);
+        onSceneReady(scene);
       } else {
-        scene.onReadyObservable.addOnce((scene) => props.onSceneReady(scene));
+        scene.onReadyObservable.addOnce((scene) => onSceneReady(scene));
       }
 
       engine.runRenderLoop(() => {

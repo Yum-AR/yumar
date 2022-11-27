@@ -1,8 +1,8 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useState } from 'react';
+import { Dispatch, Fragment, SetStateAction, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Router from 'next/router';
-import { ClosedLockIcon, XIcon } from '../icons/icons';
+import { ClosedLockIcon, XIcon } from '../../../lib/icons/icons';
 
 const SignUpModal = ({
   showSignUpModal,
@@ -11,8 +11,8 @@ const SignUpModal = ({
 }:
 {
   showSignUpModal: boolean;
-  setSignUpModal: boolean;
-  setAuthModal: boolean;
+  setSignUpModal: Dispatch<SetStateAction<boolean>>;
+  setAuthModal: Dispatch<SetStateAction<boolean>>;
 }) => {
   const [ email, setEmail ] = useState(``);
   const [ fullName, setFullName ] = useState(``);
@@ -76,7 +76,7 @@ const SignUpModal = ({
                   onClick={() => setSignUpModal(false)}
                 >
                   <span className="sr-only">Close</span>
-                  <XIcon className="h-6 w-6" aria-hidden="true" />
+                  <XIcon aria-hidden="true" />
                 </button>
               </div>
               <div>

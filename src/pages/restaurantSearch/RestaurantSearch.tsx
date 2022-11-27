@@ -1,19 +1,68 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { Fragment, useState } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid';
 import NavBar from '../reusableItems/components/NavBar';
-import { XIcon } from '../reusableItems/icons/icons';
-import { filters, sortOptions } from '../reusableItems/variables/variables';
+import { XIcon } from '../../lib/icons/icons';
+import { filters, sortOptions } from '../../lib/variables/variables';
 import { trpc } from '../../utils/trpc';
 import SearchCards from './components/SearchCards';
 function classNames(...classes: string[]): string {
   return classes.filter(Boolean).join(` `);
 }
 
+interface IRestaurantAddress {
+  city: string;
+  restuarantAddressId: number;
+  state: string;
+  street: string;
+  zip: string;
+}
+
+interface IRestaurantSettings {
+  priceRange: string;
+  restaurantHeaderImageUrl: string;
+  restaurantSettingsId: number;
+  restaurantThumbnailUrl: string;
+}
+interface IMenuItems{
+  isPublished: boolean;
+  itemDescription: string;
+  itemPrice: string;
+  lastUpdatedDate: Date;
+  menuHeaderId: number;
+  menuItem: string;
+  menuItemId: number;
+  modelApproval: boolean;
+  modelUpdate?: Date;
+  modelUrl: string;
+  restaurantId: number;
+  scaleCompensation?: number;
+  thumbnailUrl: string;
+  userId?: number;
+}
+interface IRestaurant {
+  RestaurantAddress: IRestaurantAddress;
+  RestaurantInformation: any[];
+  MenuItems: IMenuItems[];
+  RestaurantSettings: IRestaurantSettings;
+  isApproved: boolean;
+  isFeatured: boolean;
+  restaurantAddressId: number;
+  restaurantDescription: string;
+  restaurantId: number;
+  restaurantName: string;
+  restaurantSettingsId: number;
+  userId: number | null;
+  websiteUrl: string;
+
+}
+
 const RestaurantSearch: React.FC = () => {
 
   const [ mobileFiltersOpen, setMobileFiltersOpen ] = useState(false);
-  const { data: restaurants } = trpc.restaurant.getRestaurant.useQuery({ isApproved: true });
+  const { data: restaurants }: {
+    data: any | IRestaurant[];} = trpc.restaurant.getRestaurants.useQuery({ isApproved: true });
   console.log(restaurants, `restaurant data`);
 
   return (
@@ -54,7 +103,7 @@ const RestaurantSearch: React.FC = () => {
                     onClick={() => setMobileFiltersOpen(false)}
                   >
                     <span className="sr-only">Close menu</span>
-                    <XIcon className="h-6 w-6" aria-hidden="true" />
+                    <XIcon aria-hidden="true" />
                   </button>
                 </div>
 

@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { Fragment, useState } from 'react';
 import { type NextPage } from 'next';
 import { Popover, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { MenuIcon, XIcon } from '../reusableItems/icons/icons';
+import { MenuIcon, XIcon } from '../../lib/icons/icons';
 import ProfileDropdown from '../reusableItems/components/ProfileDropdown';
 // import AuthModal from '../reusableItems/components/AuthModal';
 // import SignUpModal from '../reusableItems/components/SignUpModal';

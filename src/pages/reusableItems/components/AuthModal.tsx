@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import React, { Dispatch, Fragment } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { XIcon } from '../icons/icons';
+import { XIcon } from '../../../lib/icons/icons';
 
 const AuthModal: React.FC<{showAuthModal: boolean;
   setAuthModal: Dispatch<boolean>;
@@ -53,7 +53,7 @@ const AuthModal: React.FC<{showAuthModal: boolean;
                   onClick={() => setAuthModal(false)}
                 >
                   <span className="sr-only">Close</span>
-                  <XIcon className="h-6 w-6" aria-hidden="true" />
+                  <XIcon aria-hidden="true" />
                 </button>
               </div>
               <div>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 const GenreBadge: React.FC<{ value: any[], priceRange: string }> = ({ value, priceRange }) => {
   const foodGenres = [];
   for (const genre of value) {

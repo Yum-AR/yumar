@@ -1,28 +1,18 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Image from 'next/image';
-import { XIcon } from '../../reusableItems/icons/icons';
+import { XIcon } from '../../../lib/icons/icons';
 import 'babylonjs-loaders';
 import SceneComponent from '../../reusableItems/components/Scene';
+import { trpc } from '../../../utils/trpc';
 
-interface IRestaurantAddress {
-  city: string;
-  restuarantAddressId: number;
-  state: string;
-  street: string;
-  zip: string;
-}
-
-interface IRestaurantSettings {
-  priceRange: string;
-  restaurantHeaderImageUrl: string;
-  restaurantSettingsId: number;
-  restaurantThumbnailUrl: string;
-}
 interface IMenuItems{
   isPublished: boolean;
   itemDescription: string;
@@ -39,37 +29,27 @@ interface IMenuItems{
   thumbnailUrl: string;
   userId?: number;
 }
-interface IRestaurant {
-  RestaurantAddress: IRestaurantAddress;
-  RestaurantInformation: any[];
-  MenuItems: IMenuItems[];
-  RestaurantSettings: IRestaurantSettings;
-  isApproved: boolean;
-  isFeatured: boolean;
-  restaurantAddressId: number;
-  restaurantDescription: string;
-  restaurantId: number;
-  restaurantName: string;
-  restaurantSettingsId: number;
-  userId: number | null;
-  websiteUrl: string;
 
-}
+const MenuCards: React.FC<{ restaurantId: number }> = ({ restaurantId }) => {
+  console.log(restaurantId, `OG ID`);
 
-const MenuCards: React.FC<{ restaurant: IRestaurant }> = ({ restaurant }) => {
+  const { data: restaurant } = trpc.restaurant.getRestaurant.useQuery({ restaurantId });
+  console.log(restaurant, `menu cards`);
   console.log(`ACTIVE`);
+  // const { menuItems } = restaurant;
   const [ isOpen, setIsOpen ] = useState(false);
   const [ webURL, setWebURL ] = useState<string>();
   const [ usdzURL, setUsdzURL ] = useState<string>();
   const [ foodName, setFoodName ] = useState<string>(`hi`);
-  const menuItems = restaurant.MenuItems;
-  const sortedMenuItems: any[] = menuItems.reduce((acc: any[], curr) => {
+  console.log(restaurant, `menu cards restuarant`);
+  const menuItems = restaurant?.MenuItems;
+  const sortedMenuItems = menuItems?.reduce((acc: any[], curr: any) => {
     acc[curr.menuHeaderId] = acc[curr.menuHeaderId] || [];
     acc[curr.menuHeaderId].push(curr);
     return acc;
   }, []);
   console.log(sortedMenuItems, `menu items`);
-  const onSceneReady = (scene: BABYLON.Nullable<BABYLON.Scene> | undefined) => {
+  const onSceneReady = (scene: any | undefined) => {
 
     // This creates and positions a free camera (non-mesh)
     const camera = new BABYLON.ArcRotateCamera(
@@ -90,14 +70,14 @@ const MenuCards: React.FC<{ restaurant: IRestaurant }> = ({ restaurant }) => {
     const light = new BABYLON.HemisphericLight(`light`, new BABYLON.Vector3(0, 1, 0), scene);
 
     light.intensity = 0.7;
-    const url: string | undefined = webURL?.split(`wasabisys`);
+    const url = webURL && webURL.split(`wasabisys`);
     console.log(url);
-    BABYLON.SceneLoader.Append(`${url[0]}wasabisys`, url[1], scene);
+    BABYLON.SceneLoader.Append(`${url && url[0]}wasabisys`, `${url && url[1]}`, scene);
   };
   return (
     <>
       <div>
-        {sortedMenuItems.map((section, index) =>
+        {sortedMenuItems?.map((section, index) =>
           <>
             {<h1 key={index}
               className="text-[2rem] font-bold m-8 ml-8">{section[index].menuHeaderId.toString()}</h1>}
@@ -179,7 +159,7 @@ const MenuCards: React.FC<{ restaurant: IRestaurant }> = ({ restaurant }) => {
                       onClick={() => setIsOpen(false)}
                     >
                       <span className="sr-only">Close</span>
-                      <XIcon className="h-6 w-6" aria-hidden="true" />
+                      <XIcon aria-hidden="true" />
                     </button>
                   </div>
                   <div className="sm:flex sm:items-start">

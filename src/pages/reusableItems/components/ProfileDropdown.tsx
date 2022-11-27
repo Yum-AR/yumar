@@ -9,7 +9,7 @@ function classNames(...classes: string[]): string {
 }
 
 const ProfileDropdown: React.FC = () => {
-  const { session } = useSession();
+  const { data: session } = useSession();
   return (
     <Menu as="div" className="ml-3 object-right-top relative self-end">
       <div>
@@ -18,7 +18,7 @@ const ProfileDropdown: React.FC = () => {
          lg:p-2 lg:rounded-md lg:hover:bg-gray-100">
           <HiUser />
           <span className="hidden ml-3 text-gray-700 text-sm font-medium lg:block">
-            <span className="sr-only">Open user menu for </span>{session ? session.user.email : `No user`}
+            <span className="sr-only">Open user menu for </span>{session ? session?.user?.email : `No user`}
           </span>
           {/* <ChevronDownIcon
             className="hidden flex-shrink-0 ml-1 h-5 w-5 text-gray-400 lg:block"
