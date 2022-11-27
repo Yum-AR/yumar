@@ -1,5 +1,5 @@
 import React from 'react';
-import { LocationIcon, ARIcon, QRIcon, CameraIcon, DeviceIcon } from '../icons/icons';
+import { ARIcon, CameraIcon, DeviceIcon, LocationIcon, QRIcon } from '../icons/icons';
 
 // HeroSection page navigation
 export const navigationHero = [
@@ -195,7 +195,6 @@ export const footerNavigation = {
         </svg>
       ,
     },
-
 
   ],
 };

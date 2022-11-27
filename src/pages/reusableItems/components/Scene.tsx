@@ -1,10 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { Engine, Scene } from 'babylonjs';
 import { NextPage } from 'next';
 import React, { useEffect, useRef } from 'react';
 
 const SceneComponent: NextPage<any> = (props) => {
   const reactCanvas = useRef(null);
-  const { antialias, engineOptions, adaptToDeviceRatio, sceneOptions, onRender, onSceneReady, ...rest } = props;
+  const {
+    antialias,
+    engineOptions,
+    adaptToDeviceRatio,
+    sceneOptions,
+    onRender,
+    onSceneReady,
+    ...rest
+  } = props;
   let x;
   useEffect(() => {
     if (reactCanvas.current) {

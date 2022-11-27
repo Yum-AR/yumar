@@ -1,27 +1,36 @@
 /* This example requires Tailwind CSS v2.0+ */
-import { Fragment, useCallback, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import { ClosedLockIcon, XIcon } from '../icons/icons';
 import Router from 'next/router';
+import { ClosedLockIcon, XIcon } from '../icons/icons';
 
-const SignUpModal = ({ showSignUpModal, setSignUpModal, setAuthModal }: { showSignUpModal: any, setSignUpModal: any, setAuthModal: any}) => {
-  const [email, setEmail] = useState('');
-  const [fullName, setFullName] = useState('');
+const SignUpModal = ({
+  showSignUpModal,
+  setSignUpModal,
+  setAuthModal,
+}:
+{
+  showSignUpModal: boolean;
+  setSignUpModal: boolean;
+  setAuthModal: boolean;
+}) => {
+  const [ email, setEmail ] = useState(``);
+  const [ fullName, setFullName ] = useState(``);
   const submitData = async (e: React.SyntheticEvent) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      const body = { email, fullName }
+      const body = { email, fullName };
       await fetch(`/api/user`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        method: `POST`,
+        headers: { 'Content-Type': `application/json` },
         body: JSON.stringify(body),
-      })
-      await Router.push('/')
+      });
+      await Router.push(`/`);
       setSignUpModal(false);
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   const showLoginForm = () => {
     setAuthModal(true);
@@ -122,7 +131,7 @@ const SignUpModal = ({ showSignUpModal, setSignUpModal, setAuthModal }: { showSi
 
                           <button
                             type="submit"
-                            //onSubmit={signupHandler}
+                            // onSubmit={signupHandler}
                             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md
                              shadow-sm text-sm font-medium text-white bg-[#FF6F43] hover:bg-[#e27d18]
                               focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#FF6F43]"

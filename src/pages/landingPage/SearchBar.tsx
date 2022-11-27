@@ -1,4 +1,4 @@
-import { SearchIcon } from "../reusableItems/icons/icons";
+import { SearchIcon } from '../reusableItems/icons/icons';
 
 export default function SearchBar() {
   return (
