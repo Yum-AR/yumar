@@ -5,7 +5,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
-import { Fragment, useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Image from 'next/image';
 import { XIcon } from '../../../lib/icons/icons';
@@ -31,24 +31,19 @@ interface IMenuItems{
 }
 
 const MenuCards: React.FC<{ restaurantId: number }> = ({ restaurantId }) => {
-  console.log(restaurantId, `OG ID`);
 
   const { data: restaurant } = trpc.restaurant.getRestaurant.useQuery({ restaurantId });
-  console.log(restaurant, `menu cards`);
-  console.log(`ACTIVE`);
   // const { menuItems } = restaurant;
   const [ isOpen, setIsOpen ] = useState(false);
   const [ webURL, setWebURL ] = useState<string>();
   const [ usdzURL, setUsdzURL ] = useState<string>();
   const [ foodName, setFoodName ] = useState<string>(`hi`);
-  console.log(restaurant, `menu cards restuarant`);
   const menuItems = restaurant?.MenuItems;
   const sortedMenuItems = menuItems?.reduce((acc: any[], curr: any) => {
     acc[curr.menuHeaderId] = acc[curr.menuHeaderId] || [];
     acc[curr.menuHeaderId].push(curr);
     return acc;
   }, []);
-  console.log(sortedMenuItems, `menu items`);
   const onSceneReady = (scene: any | undefined) => {
 
     // This creates and positions a free camera (non-mesh)
@@ -71,7 +66,6 @@ const MenuCards: React.FC<{ restaurantId: number }> = ({ restaurantId }) => {
 
     light.intensity = 0.7;
     const url = webURL && webURL.split(`wasabisys`);
-    console.log(url);
     BABYLON.SceneLoader.Append(`${url && url[0]}wasabisys`, `${url && url[1]}`, scene);
   };
   return (
@@ -82,39 +76,35 @@ const MenuCards: React.FC<{ restaurantId: number }> = ({ restaurantId }) => {
             {<h1 key={index}
               className="text-[2rem] font-bold m-8 ml-8">{section[index].menuHeaderId.toString()}</h1>}
             <div className="max-w-lg ml-4 mr-8 mx-auto grid gap-5 lg:grid-cols-3 lg:max-w-none">
-              {section.map((item: IMenuItems) => {
-                console.log(section, `section`);
-                console.log(item, `item`);
-                return (
-                  <>
-                    <div key={item.menuHeaderId} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
+              {section.map((item: IMenuItems) =>
+                <>
+                  <div key={item.menuHeaderId} className="flex flex-col rounded-lg shadow-lg overflow-hidden">
 
-                      <div className="flex-shrink-0">
-                        <Image width={100} height={100} className="h-48 w-full object-cover"
-                          src={
-                            item.thumbnailUrl
-                              ? item.thumbnailUrl
-                              : `/images/menuDefault.png`
-                          } alt="" />
-                      </div>
-                      <div className="flex-1 bg-white p-6 flex flex-col justify-between">
-                        <div className="flex-1">
-                          <button onClick={() => {
-                            setIsOpen(true); if (item.modelUrl) { setWebURL(item.modelUrl); } else {
-                              setWebURL(`https://s3.us-east-1.wasabisys.com/yumar/Bread.glb`);
-                            }
-                            setUsdzURL(item.modelUrl); setFoodName(item.menuItem);
-                          }}
-                          className="float-right bg-white hover:bg-gray-100 text-gray-800
+                    <div className="flex-shrink-0">
+                      <Image width={400} height={190} className="h-48 w-full object-cover"
+                        src={
+                          item.thumbnailUrl
+                            ? item.thumbnailUrl
+                            : `/images/menuDefault.png`
+                        } alt="" />
+                    </div>
+                    <div className="flex-1 bg-white p-6 flex flex-col justify-between">
+                      <div className="flex-1">
+                        <button onClick={() => {
+                          setIsOpen(true); if (item.modelUrl) { setWebURL(item.modelUrl); } else {
+                            setWebURL(`https://s3.us-east-1.wasabisys.com/yumar/Bread.glb`);
+                          }
+                          setUsdzURL(item.modelUrl); setFoodName(item.menuItem);
+                        }}
+                        className="float-right bg-white hover:bg-gray-100 text-gray-800
                             font-semibold py-2 px-4 border border-gray-400 rounded shadow">View In AR</button>
-                          <p className="text-xl font-semibold text-gray-900">{item.menuItem }</p>
-                          <p className="text-xl font-semibold text-green-700">${item.itemPrice }</p>
-                          <p className="mt-3 text-base text-gray-500">{item.itemDescription }</p>
-                        </div>
+                        <p className="text-xl font-semibold text-gray-900">{item.menuItem }</p>
+                        <p className="text-xl font-semibold text-green-700">${item.itemPrice }</p>
+                        <p className="mt-3 text-base text-gray-500">{item.itemDescription }</p>
                       </div>
                     </div>
-                  </>
-                ); })
+                  </div>
+                </>)
               }
             </div>
           </>)}

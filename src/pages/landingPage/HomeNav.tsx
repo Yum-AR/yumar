@@ -18,7 +18,6 @@ const HomeNav: NextPage = () => {
   // const session = getSession();
   // const router = useRouter();
   const { data: session, status } = useSession();
-  console.log(session, status, `status`);
   // if (status === "authenticated") {
   // return <p>Signed in as {session.user.email}</p>
   // spnSignIn.style.display = "none";

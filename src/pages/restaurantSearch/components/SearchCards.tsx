@@ -5,7 +5,6 @@ import { trpc } from '../../../utils/trpc';
 const SearchCards: React.FC = () => {
 
   const { data: restaurantArray } = trpc.restaurant.getRestaurants.useQuery({ isApproved: true });
-  console.log(restaurantArray, `Restaurant Array`);
   return (
     <>
       <div className="w-full">
@@ -21,15 +20,15 @@ const SearchCards: React.FC = () => {
                   }}>
                     <div className="flex flex-col cursor-pointer">
                       <div className="max-w-[100%] p-3 cursor-pointer">
-                        <Image width={`500`} height={`100`} className="h-96 object-contain rounded"
+                        <Image width={`1300`} height={`500`} className="h-96 object-contain rounded"
                           src={item?.RestaurantSettings?.restaurantThumbnailImageUrl ??
                             `https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?ixlib=rb-1.2
                           .1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80`}
                           alt="" />
                       </div>
 
-                      <div className=" pl-6 pt-6 text-left w-[50%]">
-                        <h5 className="text-gray-900 text-[1.5rem] mb-1 font-medium">
+                      <div className=" flex flex-col pl-6 pt-6 text-left w-[50%]">
+                        <h5 className="text-gray-900 text-[1.5rem] mb-1 font-bold">
                           {item.restaurantName ?? `My Restaurant`}
                         </h5>
                         <div className="inline-flex space-x-2">
@@ -38,7 +37,7 @@ const SearchCards: React.FC = () => {
                             value={Object.entries(item.RestaurantSettings.priceRange)}
                             priceRange={item.RestaurantSettings.priceRange} /> */}
                         </div>
-                        <h3 className="mt-5">{item.restaurantDescription}</h3>
+                        <h3 className="mt-2 mb-5 text-[#5f5f5f] font-medium">{item.restaurantDescription}</h3>
 
                       </div>
                     </div>
