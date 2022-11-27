@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-unsafe-return */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 
-import { JSXElementConstructor, Key, ReactElement, ReactFragment, ReactPortal } from 'react';
 import Image from 'next/image';
 import { NextPageContext } from 'next';
 import Link from 'next/link';
+import { uniq } from 'lodash';
 import NavBar from '../reusableItems/components/NavBar';
-// import GenreBadge from '../reusableItems/components/GenreBadge';
 import { trpc } from '../../utils/trpc';
 import MenuCards from './components/MenuCards';
 interface IRestaurantAddress {
@@ -60,9 +60,7 @@ interface IRestaurant {
 
 export function getServerSideProps(context: NextPageContext) {
   const { query } = context;
-  console.log(query, `query`);
   const { restaurantid } = query;
-  console.log(restaurantid, `imenud`);
   return { props: { restaurantid } };
 
 }
@@ -70,7 +68,10 @@ const RestaurantPage: React.FC<{restaurantid: string}> = ({ restaurantid }) => {
   const restaurantId = parseInt(restaurantid);
   const { data: activeRestaurant }: {
     data: any | IRestaurant;} = trpc.restaurant.getRestaurant.useQuery({ restaurantId });
-  console.log(activeRestaurant, `dataaa`);
+  const menuHeaderIds = activeRestaurant?.MenuItems.map((item: { menuHeaderId: any }) => item.menuHeaderId);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  const uniqueIds = uniq(menuHeaderIds);
+
   return (
     <>
       <NavBar />
@@ -135,18 +136,15 @@ const RestaurantPage: React.FC<{restaurantid: string}> = ({ restaurantid }) => {
           <div className="w-full">
             <div className="min-w-[100%]">
               <div id="fixedHeaderNav" className="flex bg-[#FFFFFF] min-w-full
-                 overflow-auto fixed  max-w-[100vw] whitespace-nowrap
-                 border-b-2 border-black-100 p-3 flex-col mt-10 justify-center">
+                 overflow-auto absolute  max-w-[100vw] whitespace-nowrap
+                 border-b-2 border-black-100 p-3 flex-col mt-2 justify-center">
                 <ul className="w-[full] inline-flex md:justify-center">
                   {
-                    activeRestaurant?.MenuItems.map((item: {
-                      menuItemId: Key | null | undefined;
-                      menuHeaderId: string | number | boolean | ReactElement<any, string | JSXElementConstructor<any>>
-                      | ReactFragment | ReactPortal | null | undefined; }) =>
-                      <li key={item.menuItemId} className="mr-6 m-2 h-full font-semibold rounded text-center
+                    uniqueIds.map((item: any) =>
+                      <li key={item} className="mr-6 m-2 h-full font-semibold rounded text-center
                          hover:drop-shadow-xl active:underline transition-all
                          hover:underline hover:cursor-pointer">
-                        {item.menuHeaderId}
+                        {item}
                       </li>)
                   }
                 </ul>
@@ -160,6 +158,5 @@ const RestaurantPage: React.FC<{restaurantid: string}> = ({ restaurantid }) => {
     </>
   );
 };
-// console.log(activeRestaurant, `ssr`);
 
 export default RestaurantPage;

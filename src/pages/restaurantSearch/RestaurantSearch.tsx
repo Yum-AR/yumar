@@ -15,7 +15,6 @@ const RestaurantSearch: React.FC = () => {
 
   const [ mobileFiltersOpen, setMobileFiltersOpen ] = useState(false);
   const { data: restaurants } = trpc.restaurant.getRestaurants.useQuery({ isApproved: true });
-  console.log(restaurants, `restaurant data`);
 
   return (
     <div className="bg-white">

@@ -61,7 +61,7 @@ const PhotoOptions: React.FC = () =>
               <div>
                 <h3 className="text-sm text-gray-700">
                   <a className="font-bold text-lg" href={product.href}>
-                    <span aria-hidden="true" className="text-center  inset-0" />
+                    <span aria-hidden="true" className="text-center inset-0" />
                     {product.name}
                   </a>
                 </h3>
