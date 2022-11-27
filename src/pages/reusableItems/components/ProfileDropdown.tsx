@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { HiUser } from 'react-icons/hi2';
 import { Menu, Transition } from '@headlessui/react';
 // import Image from 'next/image';
@@ -51,7 +51,7 @@ const ProfileDropdown: React.FC = () => {
           <Menu.Item>
             {({ active }) =>
               <a
-                href="index.html"
+                onClick={() => signOut()}
                 className={classNames(active ? `bg-gray-100` : ``, `block px-4 py-2 text-sm text-gray-700`)}
               >
                 Logout
