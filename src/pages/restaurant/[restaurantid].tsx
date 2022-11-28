@@ -8,9 +8,12 @@ import Image from 'next/image';
 import { NextPageContext } from 'next';
 import Link from 'next/link';
 import { uniq } from 'lodash';
+import Lottie from 'react-lottie-player';
 import NavBar from '../reusableItems/components/NavBar';
 import { trpc } from '../../utils/trpc';
+import foodAnimation from '../../lib/lottieAnimations/food-loading-animation.json';
 import MenuCards from './components/MenuCards';
+
 interface IRestaurantAddress {
   city: string;
   restuarantAddressId: number;
@@ -66,14 +69,15 @@ export function getServerSideProps(context: NextPageContext) {
 }
 const RestaurantPage: React.FC<{restaurantid: string}> = ({ restaurantid }) => {
   const restaurantId = parseInt(restaurantid);
-  const { data: activeRestaurant }: {
-    data: any | IRestaurant;} = trpc.restaurant.getRestaurant.useQuery({ restaurantId });
+  const { data: activeRestaurant, status }: {
+    data: any | IRestaurant; status: any;} = trpc.restaurant.getRestaurant.useQuery({ restaurantId });
+  console.log(status, typeof status, `status`);
   const menuHeaderIds = activeRestaurant?.MenuItems.map((item: { menuHeaderId: any }) => item.menuHeaderId);
   // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const uniqueIds = uniq(menuHeaderIds);
 
   return (
-    <>
+    status === `success` ? <>
       <NavBar />
       <div className="bg-white w-[100vw]">
         <div aria-hidden="true" className="relative">
@@ -155,7 +159,9 @@ const RestaurantPage: React.FC<{restaurantid: string}> = ({ restaurantid }) => {
           <MenuCards restaurantId={restaurantId}/>
         </div>
       </div>
-    </>
+    </> : <div className="flex w-[100%] mt-[20rem] justify-center">
+      <Lottie loop animationData={foodAnimation} play style={{ width: 300, height: 300 }} />
+    </div>
   );
 };
 
