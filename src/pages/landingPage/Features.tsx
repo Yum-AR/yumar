@@ -202,8 +202,7 @@ const Features: React.FC = () => {
                 width={500}
                 height={500}
                 className="relative mx-auto"
-                src="https://images.unsplash.com/photo-1590126141992-d6a613152c77?ixlib=rb-1.2.
-                1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1974&q=80"
+                src="/images/ArPhone.png"
                 alt=""
               />
             </div>
