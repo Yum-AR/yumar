@@ -213,7 +213,7 @@ const HomeNav: NextPage = () => {
                       width={500}
                       height={500}
                       src="/appicon.svg"
-                      alt="Yummr"
+                      alt="YumAR"
                     />
                   </div>
                   <div className="-mr-2">

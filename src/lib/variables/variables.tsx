@@ -21,7 +21,7 @@ export const communicationFeatures = [
     id: 2,
     name: `Multiple Mediums of Access`,
     description:
-      `View Yummr on various platforms, from our web app, iOS app, scanning a QR code - to viewing the menu. `,
+      `View YumAR on various platforms, from our web app, iOS app, scanning a QR code - to viewing the menu. `,
     icon: <DeviceIcon />,
   },
 ];
@@ -110,10 +110,9 @@ export const filters = [
 export const footerNavigation = {
   main: [
     { name: `Home`, href: `#` },
-    { name: `About Us`, href: `#` },
-    { name: `Email`, href: `mailto:support@yummr.io` },
-    { name: `Blog`, href: `#` },
-    { name: `Beta App`, href: `https://testflight.apple.com/join/TgQkBRsg` },
+    // { name: `About Us`, href: `#` },
+    { name: `Email`, href: `mailto:behcetozer100@hotmail.com` },
+    // { name: `Blog`, href: `#` },
     // {name: 'Jobs', href: '#' },
     // {name: 'Press', href: '#' },
     // {name: 'Accessibility', href: '#' },
