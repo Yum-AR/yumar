@@ -2,6 +2,8 @@
 import React, { Fragment, useState } from 'react';
 import { Dialog, Disclosure, Menu, Transition } from '@headlessui/react';
 import { FilterIcon, MinusSmIcon, PlusSmIcon } from '@heroicons/react/solid';
+import Lottie from 'react-lottie-player';
+import foodAnimation from '../../lib/lottieAnimations/food-loading-animation.json';
 import NavBar from '../reusableItems/components/NavBar';
 import { XIcon } from '../../lib/icons/icons';
 import { filters, sortOptions } from '../../lib/variables/variables';
@@ -211,12 +213,11 @@ const RestaurantSearch: React.FC = () => {
                   </Disclosure>)}
               </form>
 
-              {/* Product grid */}
               <div className="lg:col-span-3">
-                {/* Replace with your content */}
-                {restaurants ? <SearchCards />
-                  : <h1>{`Loading...`}</h1>}
-                {/* /End replace */}
+                {restaurants ? <SearchCards/> : <div className="flex w-[100%] justify-center">
+                  <Lottie loop animationData={foodAnimation} play style={{ width: 300, height: 300 }} />
+                </div>}
+
               </div>
             </div>
           </section>
