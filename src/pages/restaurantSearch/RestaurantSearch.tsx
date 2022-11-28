@@ -214,8 +214,8 @@ const RestaurantSearch: React.FC = () => {
               {/* Product grid */}
               <div className="lg:col-span-3">
                 {/* Replace with your content */}
-                {restaurants !== undefined ? <SearchCards />
-                  : <h1>{`No Restaurants`}</h1>}
+                {restaurants ? <SearchCards />
+                  : <h1>{`Loading...`}</h1>}
                 {/* /End replace */}
               </div>
             </div>

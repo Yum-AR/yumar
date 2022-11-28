@@ -102,7 +102,8 @@ const Features: React.FC = () => {
                 className='outline-none inline min-h-[100%]'
                 antialias onSceneReady={onSceneReady}
                 id="my-canvas" />
-              <menu className="absolute max-w-[25%] max-h-[25%] right-0 top-0">
+              {/* IMPLEMENT AR VIEW LATER */}
+              {/* <menu className="absolute max-w-[25%] max-h-[25%] right-0 top-0">
                 <a
                   rel="ar"
 
@@ -120,7 +121,7 @@ const Features: React.FC = () => {
                     ?b=1&k=20&m=1320330053&s=170667a&w=0&h=XisfN35UnuxAVP_sjq3ujbFDyWPurSfSTYd-Ll09Ncc=" />
 
                 </a>
-              </menu>
+              </menu> */}
             </div>
 
           </div>

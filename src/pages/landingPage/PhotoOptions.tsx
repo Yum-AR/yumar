@@ -6,32 +6,28 @@ const restaurants = [
     id: 1,
     name: `McDonalds`,
     href: `#`,
-    imageSrc: `https://images.unsplash.com/photo-1552895638-f7fe08d2f7d5?ixlib=rb-1.2.
-    1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80`,
+    imageSrc: `/images/McDonalds.png`,
     imageAlt: `McDonalds Burger`,
   },
   {
     id: 2,
     name: `Rosas Diner`,
     href: `#`,
-    imageSrc: `https://images.unsplash.com/photo-1502301103665-0b95cc738daf?ixlib=rb-1.2
-    .1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80`,
+    imageSrc: `/images/RosasDiner.png`,
     imageAlt: `Olive drab green insulated bottle with flared screw lid and flat top.`,
   },
   {
     id: 3,
     name: `First Wok`,
     href: `#`,
-    imageSrc: `https://images.unsplash.com/photo-1498654896293-37aacf113fd9?ixlib=rb-1.2.1&ixid=
-    MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80`,
+    imageSrc: `/images/FirstWok.png`,
     imageAlt: `Person using a pen to cross a task off a productivity paper card.`,
   },
   {
     id: 4,
     name: `The Experience`,
     href: `#`,
-    imageSrc: `https://images.unsplash.com/photo-1529543544282-ea669407fca3?ixlib=rb-1.2.1&ixid=
-    MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80`,
+    imageSrc: `/images/TheExperience.png`,
     imageAlt: `Hand holding black machined steel mechanical pencil with brass tip and top.`,
   },
   // More products...

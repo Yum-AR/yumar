@@ -23,7 +23,7 @@ const CallToAction: NextPage = () =>
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">Let&aposs work together</h2>
           <p className="mt-4 text-lg text-gray-500 sm:mt-3">
                   We’d love to hear from you! If you have any questions or would like to add your restaurant
-                  to our platform.  Send us a message below, or email support@yummr.io.
+                  to our platform.  Send us a message below, or email support@yumAR.io.
           </p>
           <form action="#" method="POST" className="mt-9 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-8">
             <div>
