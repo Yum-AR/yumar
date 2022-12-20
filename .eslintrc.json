@@ -16,7 +16,7 @@
   },
   "reportUnusedDisableDirectives": true,
   "rules": {
-    "arrow-body-style": 2,
+    "arrow-body-style": 0,
     "array-bracket-newline": [
       2,
       "consistent"
@@ -97,7 +97,7 @@
     "max-len": [
       2,
       {
-        "code": 120,
+        "code": 150,
         "ignoreTrailingComments": true
       }
     ],
@@ -305,10 +305,7 @@
         "@typescript-eslint/consistent-type-definitions": 2,
         "@typescript-eslint/explicit-function-return-type": 0,
         "@typescript-eslint/explicit-member-accessibility": [
-          2,
-          {
-            "accessibility": "explicit"
-          }
+          0
         ],
         "func-call-spacing": 0,
         "@typescript-eslint/func-call-spacing": 2,
