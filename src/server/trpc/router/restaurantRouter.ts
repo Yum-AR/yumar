@@ -28,4 +28,17 @@ export const restaurantRouter = router({
       MenuItems: true,
     },
   })),
+  searchRestaurant: publicProcedure.input(z.object({ query: z.string() })).query(({ input, ctx }) =>
+    ctx.prisma.restaurant.findMany({
+      where: {
+        restaurantName: {
+          search: input.query,
+        },
+      },
+      include: {
+        RestaurantAddress: true,
+        RestaurantInformation: true,
+        RestaurantSettings: true,
+      },
+    })),
 });
