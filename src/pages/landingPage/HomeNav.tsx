@@ -7,29 +7,16 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { MenuIcon, XIcon } from '../../lib/icons/icons';
 import ProfileDropdown from '../reusableItems/components/ProfileDropdown';
-// import AuthModal from '../reusableItems/components/AuthModal';
-// import SignUpModal from '../reusableItems/components/SignUpModal';
 import { trpc } from '../../utils/trpc';
 const HomeNav: NextPage = () => {
   const [ showAuthModal, setAuthModal ] = useState(false);
   const [ showSignUpModal, setSignUpModal ] = useState(false);
-  // const btnSignIn = document.getElementById("btnSignIn");
-  // const spnSignIn = document.getElementById("spnSignIn");
-  // const session = getSession();
-  // const router = useRouter();
   const { data: session, status } = useSession();
-  // if (status === "authenticated") {
-  // return <p>Signed in as {session.user.email}</p>
-  // spnSignIn.style.display = "none";
-  // }
 
   return (
     <React.Fragment>
       <div className="justify-between hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" aria-hidden="true">
         <div className="relative h-full max-w-7xl mx-auto">
-          <div
-            className="absolute w-[767px] left-[400px] z-0 top-[-100px] bg-[#FAEFEF] h-[773px]
-             right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2"/>
         </div>
       </div>
 
@@ -242,7 +229,7 @@ const SignIn: React.FC = () => {
         className="px-4 w-[140px] h-[54px] shadow-xl
          border-solid border-[#000] border-2 text-sm
         font-medium rounded-md text-white bg-[#000]
-         hover:bg-[#000] focus:outline-none text-[15px]
+         hover:bg-[#1f1f1f] focus:outline-none text-[15px]
         focus:ring-2 focus:ring-offset-2 focus:ring-[#000]"
         onClick={sessionData ? () => signOut() : () => signIn()}
       >

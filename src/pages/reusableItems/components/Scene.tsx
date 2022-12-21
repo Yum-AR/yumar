@@ -17,6 +17,8 @@ const SceneComponent: NextPage<any> = (props) => {
     adaptToDeviceRatio,
     sceneOptions,
     onRender,
+    width,
+    height,
     onSceneReady,
     ...rest
   } = props;
@@ -28,8 +30,8 @@ const SceneComponent: NextPage<any> = (props) => {
         reactCanvas.current.width = `450`;
         reactCanvas.current.height = `450`;
       } else {
-        reactCanvas.current.width = `800`;
-        reactCanvas.current.height = `800`;
+        reactCanvas.current.width = width;
+        reactCanvas.current.height = height;
       }
       const engine = new Engine(reactCanvas.current, antialias, engineOptions, adaptToDeviceRatio);
       const scene = new Scene(engine, sceneOptions);

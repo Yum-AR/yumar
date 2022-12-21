@@ -1,6 +1,7 @@
 import { type NextPage } from 'next';
 import Head from 'next/head';
 import React from 'react';
+import Script from 'next/script';
 import CallToAction from './landingPage/CallToAction';
 import PhotoOptions from './landingPage/PhotoOptions';
 import Footer from './landingPage/Footer';
@@ -23,5 +24,6 @@ const Home: NextPage = () =>
 
       <Footer />
     </div>
+    <Script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"/>
   </>;
 export default Home;
