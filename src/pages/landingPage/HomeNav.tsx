@@ -7,69 +7,16 @@ import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { MenuIcon, XIcon } from '../../lib/icons/icons';
 import ProfileDropdown from '../reusableItems/components/ProfileDropdown';
-// import AuthModal from '../reusableItems/components/AuthModal';
-// import SignUpModal from '../reusableItems/components/SignUpModal';
 import { trpc } from '../../utils/trpc';
 const HomeNav: NextPage = () => {
   const [ showAuthModal, setAuthModal ] = useState(false);
   const [ showSignUpModal, setSignUpModal ] = useState(false);
-  // const btnSignIn = document.getElementById("btnSignIn");
-  // const spnSignIn = document.getElementById("spnSignIn");
-  // const session = getSession();
-  // const router = useRouter();
   const { data: session, status } = useSession();
-  // if (status === "authenticated") {
-  // return <p>Signed in as {session.user.email}</p>
-  // spnSignIn.style.display = "none";
-  // }
 
   return (
     <React.Fragment>
       <div className="justify-between hidden sm:block sm:absolute sm:inset-y-0 sm:h-full sm:w-full" aria-hidden="true">
         <div className="relative h-full max-w-7xl mx-auto">
-          <svg
-            className="absolute right-full transform translate-y-1/4 translate-x-1/4 lg:translate-x-1/2"
-            width={404}
-            height={784}
-            fill="none"
-            viewBox="0 0 404 784"
-          >
-            <defs>
-              <pattern
-                id="f210dbf6-a58d-4871-961e-36d5016a0f49"
-                x={0}
-                y={0}
-                width={20}
-                height={20}
-                patternUnits="userSpaceOnUse"
-              >
-                <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width={404} height={784} fill="url(#f210dbf6-a58d-4871-961e-36d5016a0f49)" />
-          </svg>
-          <svg
-            className="absolute left-full transform -translate-y-3/4
-            -translate-x-1/4 md:-translate-y-1/2 lg:-translate-x-1/2"
-            width={404}
-            height={784}
-            fill="none"
-            viewBox="0 0 404 784"
-          >
-            <defs>
-              <pattern
-                id="5d0dd344-b041-4d26-bec4-8d33ea57ec9b"
-                x={0}
-                y={0}
-                width={20}
-                height={20}
-                patternUnits="userSpaceOnUse"
-              >
-                <rect x={0} y={0} width={4} height={4} className="text-gray-200" fill="currentColor" />
-              </pattern>
-            </defs>
-            <rect width={404} height={784} fill="url(#5d0dd344-b041-4d26-bec4-8d33ea57ec9b)" />
-          </svg>
         </div>
       </div>
 
@@ -79,17 +26,15 @@ const HomeNav: NextPage = () => {
             <nav className="relative flex items-center justify-between sm:h-10 md:justify-between" aria-label="Global">
               <div className="flex items-center flex-1 md:flex-none md:inset-y-0 md:left-0">
                 <div className="flex items-center justify-between w-full md:w-auto">
-                  <Link href="/">
-                    <span className="sr-only">YumAR</span>
-                    {/* <Image
-                      width={500}
-                      height={500}
+                  <Link className="flex" href="/">
+                    <Image
+                      width={100}
+                      height={100}
                       className="h-8 w-auto sm:h-10"
-                      src="https://firebasestorage.googleapis.com/v0/b/plopit-aceb3.appspot.com
-                      /o/appicon.svg?alt=media&token=e1e697e6-eb8f-4f01-97f3-201ebd43b904"
+                      src="/appicon.svg"
                       alt="Test"
 
-                    /> */}
+                    />
                   </Link>
                   <div className="-mr-2 flex items-center md:hidden">
                     <Popover.Button className="bg-gray-50 rounded-md p-2 inline-flex items-center
@@ -107,13 +52,27 @@ const HomeNav: NextPage = () => {
                   aria-hidden="true">
                   <div className="w-[4%] border-t opacity-[0.5] border-gray-300" />
                 </div>
-                <Link href="/restaurantSearch/RestaurantSearch" legacyBehavior>
-                  <a className="font-medium text-gray-500 hover:text-gray-900 px-4">
-                  Find a Restaurant
-                  </a></Link>
 
               </div>
-              <div className="md:flex">
+              <div id="right-nav-container" className="md:flex">
+                <div className="px-2 pt-3">
+                  <Link href="/restaurantSearch" legacyBehavior>
+                    <a className="leading-[18.29px] text-[15px] font-[700] text-[#000] hover:text-gray-900 px-4">
+                    Find Restaurants
+                    </a></Link>
+                </div>
+                <div className="px-2 pt-3">
+                  <Link href="/restaurantSearch" legacyBehavior>
+                    <a className="leading-[18.29px] text-[15px] font-[700] text-[#000] hover:text-gray-900 px-4">
+                    Trending Foods
+                    </a></Link>
+                </div>
+                <div className="px-2 pt-3">
+                  <Link href="/restaurantSearch" legacyBehavior>
+                    <a className="leading-[18.29px] text-[15px] font-[700] text-[#000] hover:text-gray-900 px-4">
+                    Help Me Pick
+                    </a></Link>
+                </div>
                 {
                   session
                     ? <ProfileDropdown />
@@ -145,7 +104,7 @@ const HomeNav: NextPage = () => {
                           <SignUpModal showSignUpModal={showSignUpModal} setSignUpModal={setSignUpModal}
                             setAuthModal={setAuthModal} />
                         </span> */}
-                        <AuthShowcase />
+                        <SignIn />
                         {/* <span className="inline-flex rounded-md shadow">
                           <button
                             type="button"
@@ -226,12 +185,7 @@ const HomeNav: NextPage = () => {
                     </Popover.Button>
                   </div>
                 </div>
-                <div className="px-2 pt-2 pb-3">
-                  <Link href="/restaurantSearch" legacyBehavior>
-                    <a className="font-medium text-gray-500 hover:text-gray-900 px-4">
-                    Find a Restaurant
-                    </a></Link>
-                </div>
+
                 {session
                   ? <></>
                   : <button
@@ -253,7 +207,7 @@ const HomeNav: NextPage = () => {
 };
 export default HomeNav;
 
-const AuthShowcase: React.FC = () => {
+const SignIn: React.FC = () => {
   const { data: sessionData } = useSession();
 
   const { data: secretMessage } = trpc.auth.getSecretMessage.useQuery(
@@ -272,13 +226,14 @@ const AuthShowcase: React.FC = () => {
         <p className="text-2xl text-blue-500">{secretMessage}</p>
       }
       <button
-        className="inline-flex items-center px-4 py-2 border border-transparent text-sm
-        font-medium rounded-md shadow-sm text-white bg-[#FF6F43]
-         hover:bg-[#ee8c2a] focus:outline-none
-        focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="px-4 w-[140px] h-[54px] shadow-xl
+         border-solid border-[#000] border-2 text-sm
+        font-medium rounded-md text-white bg-[#000]
+         hover:bg-[#1f1f1f] focus:outline-none text-[15px]
+        focus:ring-2 focus:ring-offset-2 focus:ring-[#000]"
         onClick={sessionData ? () => signOut() : () => signIn()}
       >
-        {sessionData ? `Sign out` : `Sign in`}
+        {sessionData ? `Sign out` : `Log in`}
       </button>
     </div>
   );

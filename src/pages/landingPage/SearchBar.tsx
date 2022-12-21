@@ -1,31 +1,47 @@
-import { SearchIcon } from '../../lib/icons/icons';
+import { NextPage } from 'next';
+import { useState } from 'react';
+import { BsSearch } from 'react-icons/bs';
+import Link from 'next/link';
+import { trpc } from '../../utils/trpc';
+const SearchBar: NextPage = () => {
+  const [ searchQuery, setSearchQuery ] = useState(``);
+  const { data: searchResult } = trpc.restaurant.searchRestaurant.useQuery({ query: searchQuery });
 
-export default function SearchBar() {
+  console.log(searchResult);
+
+  // const handleSearch = (e) => {
+  //   setSearchQuery
+  // };
   return (
-    <div className="mt-1 flex flex-col md:flex-row relative rounded-md shadow-sm h-10">
-      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-        <SearchIcon />
-      </div>
+    <div className="mt-1 flex flex-col relative rounded-md shadow-sm h-10">
+      <BsSearch className="absolute top-[0.9rem] left-[0.8rem] text-white" />
       <input
-        id="email-address"
-        name="email-address"
-        type="email"
-        autoComplete="email"
+        id="restaurant-search"
+        name="restaurant-search"
+        type="text"
+        autoComplete="search"
+        onChange={e => setSearchQuery(e.target.value)}
         required
-        className="w-full border-white px-11 py-3 placeholder-gray-500
-        focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700 focus:ring-white rounded-md"
+        className="w-full border-white bg-[#4c94d8] px-11 py-3 text-[#FFF] placeholder-[#FFF] font-semibold leading-[24.38px]
+      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-[#4c94d8] focus:ring-white rounded-md"
         placeholder="Search Nearby Restaurants"
       />
-      <button
-        type="submit"
-        className=" flex items-center md:self-auto self-end justify-center px-1
-        py-1 md:px-5 md:py-3 border border-transparent shadow text-base font-medium
-        rounded-md text-white bg-[#FF6F43] hover:bg-[#ee8c2a] focus:outline-none
-        focus:ring-2 focus:ring-offset-2 focus:ring-offset-indigo-700
-        focus:ring-white md:mt-0 mt-3 sm:ml-3 md:w-auto w-[30%] sm:flex-shrink-0"
-      >
-        Search
-      </button>
+      {searchResult && searchResult?.length > 0 ? <div className="bg-[#FFF] transition ease-in duration-500 mt-[0.5px] p-5">
+        <ul>
+          {searchResult?.map((restaurant) => {
+            return (
+              <Link key={restaurant.restaurantId} href={`/restaurant/${restaurant.restaurantId}`}>
+                <li className="text-left hover:cursor-pointer w-full h-full hover:bg-[#adadad]"
+                >{restaurant.restaurantName}</li>
+              </Link>
+            );
+          })}
+        </ul>
+      </div> : <></>}
+
     </div>
   );
-}
+
+};
+
+export default SearchBar;
