@@ -1,3 +1,16 @@
 #pinkBlur {
     filter: blur(38px);
 }
+
+#polygon {
+position: absolute;
+width: 700.58px;
+height: 1294.32px;
+top: 900px;
+left: 0;
+
+background: linear-gradient(178.77deg, rgba(33, 103, 167, 0.432) 1.05%, rgba(0, 84, 132, 0.16) 16%, rgba(4, 125, 152, 0.376) 33.25%, rgba(0, 194, 255, 0.220833) 54.33%, rgba(60, 185, 255, 0) 74.64%);
+box-shadow: 23px 4px 5px rgba(0, 0, 0, 0.25);
+border-radius: 11px;
+transform: rotate(90.19deg);
+}

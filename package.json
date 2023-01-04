@@ -33,6 +33,7 @@
     "react-lottie-player": "^1.5.0",
     "react-scroll": "^1.8.8",
     "superjson": "1.9.1",
+    "typewriter-effect": "^2.19.0",
     "zod": "^3.18.0"
   },
   "devDependencies": {
